@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from core.models import Product, OrderedItem, Order
+from core.models import Product
 from login.models import Profile
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -118,19 +118,3 @@ def view_wishlist(request):
         )
 
     return render(request, "html/wishlist.html", {"items": []})
-
-
-@login_required
-def view_order_details_by_id(request, order_ref):
-    order_details = Order.objects.filter(order_id=order_ref).first()
-    ordered_item_details = OrderedItem.objects.filter(order_id=order_ref)
-    product_item_details = Product.objects.filter(
-        pk__in=ordered_item_details.values_list("product", flat=True)
-    )
-    context = {
-        "full_name": request.user.get_full_name(),
-        "email": request.user.email,
-        "order_details": order_details,
-        "ordered_product_item_details": zip(ordered_item_details, product_item_details),
-    }
-    return render(request, "html/order_details.html", context=context)

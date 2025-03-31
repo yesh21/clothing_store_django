@@ -13,9 +13,4 @@ urlpatterns = [
     path(
         "add-to-wishlist/<slug:item_id>/", views.add_to_wishlist, name="add_to_wishlist"
     ),
-    path(
-        "order-details/<slug:order_ref>/",
-        views.view_order_details_by_id,
-        name="order-details-by-id",
-    ),
 ]

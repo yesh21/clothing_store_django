@@ -147,7 +147,7 @@
                  +
                 </button>
                </div>
-               <a class="bg-brown-600 text-black px-6 py-2 rounded-full border border-indigo-600" href = {% url 'cart:add_to_cart' product.product_id '1' 'add' %}>
+               <a class="bg-brown-600 text-black px-6 py-2 rounded-full border border-indigo-600" id="addbasket" href = {% url 'cart:add_to_cart' product.product_id '1' 'add' %}>
                 ADD TO BASKET
                </a>
               </div>
@@ -186,21 +186,50 @@
                     elements[i].classList.remove("border-2",  "border-gray-400",  "bg-gray-200");
                 }
 
-              
                 event.srcElement.classList.add("border-2",  "border-gray-400",  "bg-gray-200");
 
-              }
+            }
+
+            
             function addQuantity(){
                 if (document.getElementById("quanitySelected").innerHTML < 10) {
                     document.getElementById("quanitySelected").innerHTML++;
-                  }
+
+                    const anchor = document.getElementById("addbasket");
+
+                    if (anchor) {
+                        let url = anchor.getAttribute("href");
+                        let parts = url.split('/');
+                        if (parts.length > 3) {
+                          parts[3] = document.getElementById("quanitySelected").innerHTML;
+                        }
+                      
+                        anchor.href = parts.join('/');
+                    }
+                }
             }
+
+
+
             function dropQuantity(){
                 if (document.getElementById("quanitySelected").innerHTML > 1) {
                     document.getElementById("quanitySelected").innerHTML--;
-                  }
+                    const anchor = document.getElementById("addbasket");
+
+                    if (anchor) {
+                        let url = anchor.getAttribute("href");
+                        let parts = url.split('/');
+                        if (parts.length > 3) {
+                          parts[3] = document.getElementById("quanitySelected").innerHTML;
+                        }
+                      
+                        anchor.href = parts.join('/');
+                    }
+                }
             }
-            </script>
+
+
+        </script>
     </body>
     
 

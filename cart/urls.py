@@ -10,4 +10,9 @@ urlpatterns = [
         views.add_to_cart,
         name="add_to_cart",
     ),
+    path(
+        "order-details/<slug:order_ref>/",
+        views.view_order_details_by_id,
+        name="order-details-by-id",
+    ),
 ]

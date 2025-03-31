@@ -144,7 +144,6 @@
                     <div class="flex items-center mb-4">
                         <img alt="Image of Felix Quarter Zip Jumper" class="w-12 h-12 rounded mr-4" src={{"/"}}{{product_item.images_files }} />
                         <div>
-                            {{cart_item}}
                             <h3 class="text-lg font-bold">
                                 {{product_item.name}}
                             </h3>
@@ -219,15 +218,18 @@
     {% include "html/footer.html"%}
     <script>
         function addQuantity(){
-            if (document.getElementById("quanitySelected").innerHTML < 10) {
-                document.getElementById("quanitySelected").innerHTML++;
-              }
+            const prevSpan = event.target.previousElementSibling;
+            if (prevSpan.innerHTML < 10 && prevSpan.id === 'quanitySelected') {
+                prevSpan.innerHTML++;
+            }
         }
         function dropQuantity(){
-            if (document.getElementById("quanitySelected").innerHTML > 0) {
-                document.getElementById("quanitySelected").innerHTML--;
-              } 
+            const nextSpan = event.target.nextElementSibling;
+            if (nextSpan.innerHTML > 0 && nextSpan.id === 'quanitySelected') {
+                nextSpan.innerHTML--;
+            }
         }
+
     </script>
 </body>
 

@@ -8,8 +8,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, LoginForm
-from core.models import Order
-from login.models import Profile
+from cart.models import Order
 
 # Create your views here.
 
