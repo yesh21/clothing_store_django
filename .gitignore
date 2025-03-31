@@ -1,0 +1,16 @@
+.myVenv/
+staticfiles/*
+
+db.sqlite3
+secret_key.txt
+
+**/__pycache__/
+**/migrations/
+
+# Make exceptions
+!staticfiles/media/
+!staticfiles/product_images/
+#ignored the files, without directly ignoring the folder
+staticfiles/product_images/** 
+
+

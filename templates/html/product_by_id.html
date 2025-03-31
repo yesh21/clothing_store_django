@@ -1,0 +1,208 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+        hOOdWORK
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: #e0e0d1;
+        }
+        
+        #yourDiv.active {
+            background-color: red;
+            /* Color when active */
+        }
+        ::-webkit-scrollbar {
+            -webkit-appearance: none;
+            width: 1px;
+          }
+          
+          ::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-color: rgba(0,0,0,.5);
+          }
+          
+          
+    </style>
+    <style>
+        #sidebar {
+            min-height: 100rem;
+            color: white;
+            transition: margin-left 0.3s;
+        }
+        
+        #sidebar.active {
+            margin-left: -100vw;
+        }
+        
+        #content {
+            width: 100%;
+        }
+    </style>
+
+    <body class="">
+
+        {% include "html/nav.html"%}
+
+        <div class="container mx-auto p-4">
+            <nav class="flex items-center space-x-2 text-sm text-gray-600 mb-4">
+             <a class="hover:underline" href="#">
+              Home
+             </a>
+             <span> / </span>
+             <a class="hover:underline" href="#">All</a>
+            </nav>
+            <div class="flex flex-col lg:flex-row">
+             <div class="flex-1 flex space-x-4" style= "overflow-x: scroll">
+              <img alt="Model wearing Cove Crew Jumper" class="w-3/4 object-cover" src="https://placehold.co/300x400">
+              <img alt="Cove Crew Jumper" class="w-3/4 object-cover" src="https://placehold.co/300x400">
+              <img alt="Model wearing Cove Crew Jumper" class="w-3/4 object-cover" src="https://placehold.co/300x400">
+              <img alt="Model wearing Cove Crew Jumper" class="w-3/4 object-cover" src="https://placehold.co/300x400">
+             </div>
+             <div class="flex-1 mt-4 lg:mt-0 lg:ml-8">
+              <div class="flex items-center space-x-2 mb-2">
+               <span class="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">
+                NEW IN
+               </span>
+              </div>
+              <h1 class="text-4xl font-bold mb-2">
+                {{ product.name }}
+              </h1>
+              <p class="text-2xl text-red-600 mb-4">
+               Rs.                {{ product.discounted_price }}
+
+              </p>
+              <div class="mb-4">
+               <span class="font-bold">
+                Colour:
+               </span>
+               <span class="text-gray-600">
+                Washed Denim
+               </span>
+               <div class="flex space-x-2 mt-2">
+                <div class="w-8 h-8 rounded-full border-2 border-gray-400 bg-gray-400">
+                </div>
+                <div class="w-8 h-8 rounded-full border-2 border-gray-400 bg-white">
+                </div>
+               </div>
+              </div>
+              <div class="mb-4">
+               <span class="font-bold">
+                Size:
+               </span>
+               <span id = "sizeSelected" class="text-gray-600">
+                L
+               </span>
+               <div class="flex space-x-2 mt-2 p-2">
+                <button onclick="updateSize()" id="sizeButton" class="w-10 h-10 rounded-full">
+                 S
+                </button>
+                <button onclick="updateSize()" id="sizeButton" class="w-10 h-10  rounded-full">
+                 M
+                </button>
+                <button onclick="updateSize()" id="sizeButton" class="w-10 h-10  border-2 border-gray-400 rounded-full bg-gray-200">
+                 L
+                </button>
+                <button onclick="updateSize()" id="sizeButton" class="w-10 h-10  rounded-full">
+                 XL
+                </button>
+                <button onclick="updateSize()" id="sizeButton" class="px-2 rounded-full">
+                 XXL
+                </button>
+                <a id="openModal" class="text-gray-600 underline ml-2" >
+                 Size guide
+                </a>
+                
+               </div>
+               <div id="myModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+                <div class="bg-white w-1/2 p-6 rounded shadow-lg">
+                    <div class ="flex">
+                        <h>Size guide
+                        </h>
+                    <a class="ml-auto text-l" id="closeModal">
+                        &#x2715;
+                    </a>
+                </div>
+              </div>
+              </div>
+              <div class="flex items-center space-x-4 mb-4">
+               <div class="flex items-center border-2 border-gray-400 rounded-full px-2 py-1">
+                <button onclick ="dropQuantity()" class="text-gray-600">
+                 -
+                </button>
+                <span id = "quanitySelected" class="mx-2">
+                 1
+                </span>
+                <button onclick ="addQuantity()" class="text-gray-600">
+                 +
+                </button>
+               </div>
+               <a class="bg-brown-600 text-black px-6 py-2 rounded-full border border-indigo-600" href = {% url 'cart:add_to_cart' product.product_id '1' 'add' %}>
+                ADD TO BASKET
+               </a>
+              </div>
+              <div class="flex items-center space-x-4">
+               <a class="text-gray-600 hover:underline" href="/add-to-wishlist/1/">
+                <i class="far fa-heart">
+                </i>
+                Add to wishlist
+               </a>
+               <a class="text-gray-600 hover:underline" href="/">
+                <i class="fas fa-arrow-left">
+                </i>
+                Return to collection
+               </a>
+              </div>
+             </div>
+            </div>
+           </div>
+        </div>
+
+
+        {% include "html/footer.html"%}
+
+        <script>
+            document.getElementById('openModal').addEventListener('click', () => {
+                document.getElementById('myModal').classList.remove('hidden');
+            });
+            document.getElementById('closeModal').addEventListener('click', () => {
+                document.getElementById('myModal').classList.add('hidden');
+            });
+                        
+            function updateSize() {
+                document.getElementById("sizeSelected").innerHTML = event.target.innerText;
+                var elements = document.querySelectorAll('[id=sizeButton]');
+                for(var i = 0; i < elements.length; i++) {
+                    elements[i].classList.remove("border-2",  "border-gray-400",  "bg-gray-200");
+                }
+
+              
+                event.srcElement.classList.add("border-2",  "border-gray-400",  "bg-gray-200");
+
+              }
+            function addQuantity(){
+                if (document.getElementById("quanitySelected").innerHTML < 10) {
+                    document.getElementById("quanitySelected").innerHTML++;
+                  }
+            }
+            function dropQuantity(){
+                if (document.getElementById("quanitySelected").innerHTML > 1) {
+                    document.getElementById("quanitySelected").innerHTML--;
+                  }
+            }
+            </script>
+    </body>
+    
+
+
+</html>

@@ -1,0 +1,94 @@
+{% load static %}
+<footer class="p-4 bg-gray-800 text-white" style="    font-family: 'Font Awesome 5 Free';">
+
+    <div class="space-y-4">
+
+        <div class="border-b border-gray-600 py-2">
+            <div class="flex justify-between items-center" onclick="toggleCollapsible()">
+                <span class="font-semibold pointer-events-none">
+                Shop
+            </span>
+                <i class="fas fa-chevron-right">
+            </i>
+            </div>
+            <div class="mt-2 ml-4 space-y-1 hidden">
+                <div>
+                    INSTAGRAM
+                </div>
+                <div>
+                    FACEBOOK
+                </div>
+            </div>
+        </div>
+        <div class="border-b border-gray-600 py-2">
+            <div class="flex justify-between items-center" onclick="toggleCollapsible()">
+                <span class="font-semibold pointer-events-none">
+                About US
+            </span>
+                <i class="fas fa-chevron-right">
+            </i>
+            </div>
+            <div class="mt-2 ml-4 space-y-1 hidden">
+                <div>
+                    INSTAGRAM
+                </div>
+                <div>
+                    FACEBOOK
+                </div>
+            </div>
+        </div>
+        <div class="border-b border-gray-600 py-2">
+            <div class="flex justify-between items-center" onclick="toggleCollapsible()">
+                <span class="font-semibold pointer-events-none">
+                Social media
+            </span>
+                <i class="fas fa-chevron-down">
+            </i>
+            </div>
+            <div class="mt-2 ml-4 space-y-1">
+                <div>
+                    INSTAGRAM
+                </div>
+                <div>
+                    FACEBOOK
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4 text-gray-400 text-sm">
+        <p>
+            © hoodwork company 2024
+        </p>
+    </div>
+    <div class="mt-4 flex space-x-4">
+        <img alt="make in India logo" height="20" width="40" src="{% static 'media/aaz6bq8cw.webp' %}">
+    </div>
+
+
+</footer>
+
+<script>
+    function toggleCollapsible() {
+      const clickedButton = event.target;
+      const content = clickedButton.nextElementSibling;
+
+
+      // Toggle visibility
+      content.classList.toggle('hidden');
+      content.classList.toggle('block');
+
+      // Update button text
+      clickedButton.children[1].classList.toggle('fa-chevron-down');
+      clickedButton.children[1].classList.toggle('fa-chevron-right');
+    }
+
+    const footer = document.querySelector('footer');
+
+    gsap.to(footer, {
+        scrollTrigger: {
+          trigger: footer,
+          start: "top bottom",
+          onEnter: () => gsap.fromTo(footer, {backgroundColor: "initial", color: "initial"}, {backgroundColor: "#303337", color: "#ffffff", duration: 2}),
+        }
+      });
+  </script>
