@@ -72,7 +72,7 @@
              <div class="flex-1 mt-4 lg:mt-0 lg:ml-8">
               <div class="flex items-center space-x-2 mb-2">
                <span class="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">
-                NEW IN
+                {{ product.tags }}
                </span>
               </div>
               <h1 class="text-4xl font-bold mb-2">
@@ -213,7 +213,7 @@
                         }
                     }
 
-                        document.getElementById("addbasket").classList.add("pointer-events-none", "opacity-50");
+                    document.getElementById("addbasket").classList.add("pointer-events-none", "opacity-50");
 
                     } else {
                         update_addcart_url(data["pk"], 2)
@@ -257,11 +257,16 @@
                 request_product_info(event.target, button_type = "color");
 
             }
-            document.getElementById('sizeButton').classList.add("border-2",  "border-gray-400",  "bg-gray-200");
-            document.getElementById("sizeSelected").innerHTML = document.getElementById('sizeButton').innerHTML;
-            document.getElementById("colorSelected").innerHTML = document.getElementById('colorButton').value;
-            document.getElementById("colorSelected").innerHTML += document.getElementById('colorButton').innerHTML;
-            document.getElementById('colorButton').classList.add("border-4",  "border-gray-400",  "bg-gray-200");
+            try {
+                document.getElementById('sizeButton').classList.add("border-2",  "border-gray-400",  "bg-gray-200");
+                document.getElementById("sizeSelected").innerHTML = document.getElementById('sizeButton').innerHTML;
+                document.getElementById("colorSelected").innerHTML = document.getElementById('colorButton').value;
+                document.getElementById("colorSelected").innerHTML += document.getElementById('colorButton').innerHTML;
+                document.getElementById('colorButton').classList.add("border-4",  "border-gray-400",  "bg-gray-200");
+                  } catch (error) {
+                    console.log(error);
+                    document.getElementById("addbasket").classList.add("pointer-events-none", "opacity-50");
+                  }
             request_product_info()
 
 
