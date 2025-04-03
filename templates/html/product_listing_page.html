@@ -12,13 +12,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <!-- Slick CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.css"/>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
 
     <style>
         body {
@@ -44,50 +37,12 @@
         #content {
             width: 100%;
         }
-        .slick-prev {
-            left: 0;
-            z-index: 1;
-            height: 100%;
-            
-        }
-        .slick-next {
-            right: 0;
-            height: 100%;
-        }
 
     </style>
 
     <body class="">
 
-        {% include "html/nav.html"%}
-   
-        <div class="carousel flex m-auto h-3/5">
-            <div class="relative">
-                <img class="object-cover h-full opacity-50" height="600" src={% static 'media/flannelshirt.webp' %} width="1920">
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-semibold" style="    font-family: 'Font Awesome 5 Free';">
-                        Men's Flannel Shirts
-                    </h1>
-                </div>
-            </div>
-            <div class="relative">
-                <img class="object-cover h-full opacity-50" height="600" src={% static 'media/flannelshirt.webp' %} width="1920">
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-semibold" style="    font-family: 'Font Awesome 5 Free';">
-                        Men's Flannel Shirts
-                    </h1>
-                </div>
-            </div>
-            <div class="relative">
-                <img class="object-cover h-full opacity-50" height="600" src={% static 'media/flannelshirt.webp' %} width="1920">
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-semibold" style="    font-family: 'Font Awesome 5 Free';">
-                        Men's Flannel Shirts
-                    </h1>
-                </div>
-            </div>
-          </div>
-        
+        {% include "html/nav.html"%}     
         <div class="flex justify-between items-center mb-2 p-4">
             <button class="bg-black text-white px-4 py-2 rounded-full flex items-center">
             <i class="fas fa-filter mr-2">
@@ -181,23 +136,7 @@
 
         {% include "html/footer.html"%}
 
-        <script>
-            $(document).ready(function(){
-                $('.carousel').slick({
-                    dots: true,
-                    infinite: true,
-                    speed: 500,
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    autoplay: true,
-                    autoplaySpeed: 2000,
-                    arrows: true,
-                    nextArrow: '<button type="button" class="slick-next w-20">⫸</button>',
-                    prevArrow: '<button type="button" class="slick-prev w-20">⫷</button>'
-            
-                });
-            });
-        
+        <script>        
             function wishlistHeart() {
                 if (event.target.classList.contains("fas",  "fas-heart")) {
                     event.target.classList.remove("fas",  "fas-heart");

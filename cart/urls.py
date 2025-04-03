@@ -6,7 +6,7 @@ app_name = "cart"
 urlpatterns = [
     path("cart/", views.cart),
     path(
-        "addcart/<slug:product_id>/<int:quantity>/<slug:action>/",
+        "addcart/<slug:product_variation_id>/<int:quantity>/<slug:action>/",
         views.add_to_cart,
         name="add_to_cart",
     ),

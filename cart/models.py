@@ -1,7 +1,7 @@
 import uuid
 from django.conf import settings
 from django.db import models
-from core.models import Product
+from core.models import ProductVariation
 
 # Create your models here.
 
@@ -10,12 +10,8 @@ class Cart(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE
     )  # Foreign key to User model
-    product = models.ForeignKey(
-        Product, on_delete=models.CASCADE
-    )  # Foreign key to Product model
-    quantity = models.PositiveIntegerField(
-        default=1
-    )  # Quantity of the product in the cart
+    product_variation = models.ForeignKey(ProductVariation, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
     created_at = models.DateTimeField(
         auto_now_add=True
     )  # Timestamp when the cart item was created
@@ -28,11 +24,11 @@ class Cart(models.Model):
         verbose_name_plural = "Carts"
         unique_together = (
             "user",
-            "product",
+            "product_variation",
         )  # Ensure a user can only have one of each product in their cart
 
     def __str__(self):
-        return f"{self.user.username} - {self.product.name} (Quantity: {self.quantity})"
+        return f"{self.user.username} - {self.product_variation} (Quantity: {self.quantity})"
 
 
 class Order(models.Model):
@@ -65,12 +61,10 @@ class Order(models.Model):
 
 class OrderedItem(models.Model):
     id = models.AutoField(primary_key=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_variation = models.ForeignKey(ProductVariation, on_delete=models.CASCADE)
     order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     cost_per_unit = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return (
-            f"{self.quantity} of {self.product.name} in Order {self.order_id.order_id}"
-        )
+        return f"{self.quantity} of {self.product_variation} in Order {self.order_id.order_id}"

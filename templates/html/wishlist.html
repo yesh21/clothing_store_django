@@ -87,12 +87,20 @@
                     {{ prod.name }}
                 </p>
                 <div class="flex items-center space-x-3">
-                    <span class="line-through text-gray-500">
-                    ₹{{ prod.price }}
-                </span>
-                    <span class="text-black font-bold">
-                    ₹ {{ prod.discounted_price }}
-                </span>
+                    {% if prod.base_price > prod.discounted_price %}
+
+                    <span class="line-through text-sm text-gray-500">
+                    ₹{{ prod.base_price }}
+                    </span>
+                    <span class="text-red-600 font-bold">
+                    ₹{{ prod.discounted_price }}
+                    </span>
+
+                    {% else %}
+                    <span class="text-gray-600 font-semibold">
+                        ₹{{ prod.base_price }}
+                    </span>
+                    {% endif %}
                 </div>
             </a>
             </div>

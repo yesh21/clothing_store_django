@@ -139,39 +139,41 @@
                 </div>
             </div>
             <div class="bg-gray-50 p-4 rounded">
-                {% for cart_item, product_item in cart_product_items_details %}
+                {% for cart_item, product_variety in cart_product_items_details %}
                 <div class="flex items-center justify-between mb-4">
+                    <a href="/products/{{ product_variety.product.product_id }}/">
                     <div class="flex items-center mb-4">
-                        <img alt="Image of Felix Quarter Zip Jumper" class="w-12 h-12 rounded mr-4" src={{"/"}}{{product_item.images_files }} />
+                        <img alt="Image of Felix Quarter Zip Jumper" class="w-12 h-12 rounded mr-4" src={{"/"}}{{product_variety.product.images_files }} />
                         <div>
                             <h3 class="text-lg font-bold">
-                                {{product_item.name}}
+                                {{product_variety.product.name}}
                             </h3>
                             <p class="text-sm text-gray-500">
-                                White / S
+                                {{product_variety.color.name}} / {{product_variety.size.name}}
                             </p>
                         </div>
                     </div>
+                </a>
                     <div class="text-right">
                         <div class="flex items-center">
                             {% if cart_item.quantity <= 0 %}
-                            <a class="text-red-500" onclick ="dropQuantity()" href = {% url 'cart:add_to_cart' product_item.product_id '1' "subtract"  %}>
+                            <a class="text-red-500" onclick ="dropQuantity()" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "subtract"  %}>
                                 remove
                             </a>
                             {% else %}
-                            <a class="text-gray-500" onclick ="dropQuantity()" href = {% url 'cart:add_to_cart' product_item.product_id '1' "subtract" %}>
+                            <a class="text-gray-500" onclick ="dropQuantity()" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "subtract" %}>
                                 -
                             </a>
                             {% endif %}
                             <span class="mx-2" id = "quanitySelected">
                                 {{cart_item.quantity}}
                      </span>
-                            <a class="text-gray-500" onclick ="addQuantity()" href = {% url 'cart:add_to_cart' product_item.product_id '1' "add" %}>
+                            <a class="text-gray-500" onclick ="addQuantity()" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "add" %}>
                                  +
                             </a>
                         </div>
                         <p class="font-bold">
-                            {{product_item.discounted_price}}
+                            {{product_variety.selling_price}}
                         </p>
                     </div>
                 </div>

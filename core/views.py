@@ -1,10 +1,13 @@
+import json
 from django.shortcuts import render
-from core.models import Product
+from django.db.models import Q
+from core.models import Category, Color, Product, ProductVariation, Size
 from login.models import Profile
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from .forms import ProductFilterForm
 from django.contrib.auth.decorators import login_required
+from django.core.serializers import serialize
 
 
 # Create your views here.
@@ -35,9 +38,13 @@ def index(request):
             #         color__icontains=color
             #     )  # Case-insensitive search
             if min_price is not None:
-                products = products.filter(discounted_price__gte=min_price)
+                products = products.filter(
+                    discounted_price__gte=min_price, is_avaliable=True
+                )
             if max_price is not None:
-                products = products.filter(discounted_price__lte=max_price)
+                products = products.filter(
+                    discounted_price__lte=max_price, is_avaliable=True
+                )
 
     else:
         form = ProductFilterForm()
@@ -55,7 +62,17 @@ def wishlist(request):
 
 def Productdetail(request, pk):
     product = get_object_or_404(Product, pk=pk)  # Use pk instead of id
-    context = {"product": product}
+
+    colors = Color.objects.filter(productvariation__product_id=pk).distinct()
+
+    # Get distinct sizes
+    sizes = Size.objects.filter(productvariation__product_id=pk).distinct()
+
+    context = {
+        "product": product,
+        "colors": colors,
+        "sizes": sizes,
+    }
     return render(request, "html/product_by_id.html", context)
 
 
@@ -118,3 +135,50 @@ def view_wishlist(request):
         )
 
     return render(request, "html/wishlist.html", {"items": []})
+
+
+def get_product_variation_json(request, product_id, size, color):
+    response_data = {"stock_quantity": 0, "message": "sorry couldn't find item"}
+    product_variations = ProductVariation.objects.filter(
+        product=product_id, size=size, color=color
+    ).first()
+
+    if product_variations:
+        serialized_data = serialize("json", [product_variations])
+        # Parse the serialized data
+        response_data = json.loads(serialized_data)[0]
+
+    return JsonResponse(response_data)
+
+
+def search_products(request):
+    query = request.GET.get("q")
+    if query:
+        products = Product.objects.filter(
+            Q(name__icontains=query)
+            | Q(description__icontains=query)
+            | Q(tags__icontains=query)
+            | Q(brand__name__icontains=query)
+            | Q(category__name__icontains=query)
+            | Q(variations__color__name__icontains=query)
+            | Q(variations__size__name__icontains=query)
+            | Q(variations__sku=query)
+        ).distinct()
+    else:
+        products = Product.objects.all()
+
+    return render(
+        request,
+        "html/product_listing_page.html",
+        {"products": products, "query": query},
+    )
+
+
+def product_by_category(request, category_id, name="collection"):
+    category = get_object_or_404(Category, category_id=category_id)
+    products = category.product_set.all()  # Use default reverse relation
+    return render(
+        request,
+        "html/product_listing_page.html",
+        {"category": category, "products": products},
+    )

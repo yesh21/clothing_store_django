@@ -3,49 +3,44 @@
 
     <div class="space-y-4">
 
-        <div class="border-b border-gray-600 py-2">
-            <div class="flex justify-between items-center" onclick="toggleCollapsible()">
+        <div class="border-b border-gray-600 py-4">
+            <div class="flex justify-between items-center text-xl" onclick="toggleCollapsible()">
                 <span class="font-semibold pointer-events-none">
                 Shop
             </span>
-                <i class="fas fa-chevron-right">
+                <i class="fas fa-chevron-right pointer-events-none">
             </i>
             </div>
-            <div class="mt-2 ml-4 space-y-1 hidden">
-                <div>
-                    INSTAGRAM
-                </div>
-                <div>
-                    FACEBOOK
-                </div>
+            <div class="grid text-sm mt-2 ml-6 space-y-1 hidden">
+                <a href ="{% url 'core:product_by_category' '1' 'tshirts' %}">SHIRTS</a>
+                <a href ="{% url 'core:product_by_category' '1' 'tshirts'  %}">TSHIRTS</a>
+                <a href ="{% url 'core:product_by_category' '1' 'tshirts' %}">HOODIES</a>
+                <a href ="{% url 'core:product_by_category' '1' 'tshirts' %}">JEANS</a>
+                <a href ="{% url 'core:product_by_category' '1' 'tshirts' %}">SHORTS</a>
             </div>
         </div>
-        <div class="border-b border-gray-600 py-2">
-            <div class="flex justify-between items-center" onclick="toggleCollapsible()">
+        <div class="border-b border-gray-600 py-4">
+            <div class="flex justify-between items-center text-xl" onclick="toggleCollapsible()">
                 <span class="font-semibold pointer-events-none">
-                About US
+                About us
             </span>
-                <i class="fas fa-chevron-right">
+                <i class="fas fa-chevron-right pointer-events-none">
             </i>
             </div>
-            <div class="mt-2 ml-4 space-y-1 hidden">
-                <div>
-                    INSTAGRAM
-                </div>
-                <div>
-                    FACEBOOK
-                </div>
+            <div class="grid mt-2 ml-6 space-y-1 hidden">
+                <a href={% url 'core:contact' %}>About Us</a>
+                <a href={% url 'core:contact' %}>Contact Us</a>
             </div>
         </div>
-        <div class="border-b border-gray-600 py-2">
+        <div class="border-b border-gray-600 py-4">
             <div class="flex justify-between items-center" onclick="toggleCollapsible()">
-                <span class="font-semibold pointer-events-none">
+                <span class="font-semibold pointer-events-none text-xl">
                 Social media
             </span>
-                <i class="fas fa-chevron-down">
+                <i class="fas fa-chevron-down pointer-events-none">
             </i>
             </div>
-            <div class="mt-2 ml-4 space-y-1">
+            <div class="mt-2 ml-6 space-y-1">
                 <div>
                     INSTAGRAM
                 </div>
@@ -68,6 +63,15 @@
 </footer>
 
 <script>
+
+      setTimeout(() => {
+        const message = document.getElementById('backendmessages');
+        message.classList.add('opacity-0'); // Apply fade-out effect
+        setTimeout(() => {
+            message.style.display = 'none'; // Completely hide the element
+        }, 1000); // Wait for transition duration to complete
+    }, 2000);
+
     function toggleCollapsible() {
       const clickedButton = event.target;
       const content = clickedButton.nextElementSibling;

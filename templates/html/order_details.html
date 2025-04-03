@@ -72,13 +72,14 @@
     <div class="mb-6">
       <h2 class="text-lg font-semibold mb-2">Products</h2>
       <div class="space-y-4">
-        {% for item, product in ordered_product_item_details %}
+        {% for item, product_variation in ordered_product_item_details %}
         <!-- Product Item -->
         <div class="flex items-center space-x-4">
-            <a class="flex" href="{% url 'core:product_detail' product.product_id %}" >
-          <img src={{"/"}}{{product.images_files }} alt="Product Image" class="w-20 h-20 rounded-lg">
+            <a class="flex" href="{% url 'core:product_detail' product_variation.product.product_id %}" >
+          <img src={{"/"}}{{product_variation.product.images_files }} alt="Product Image" class="w-20 h-20 rounded-lg">
           <div class="flex-grow">
-            <h3 class="font-medium">{{product.name}}</h3>
+            <h3 class="font-medium">{{product_variation.product.name}}</h3>
+            <p class="text-sm text-gray-500">{{product_variation.color.name}}/{{product_variation.size.name}}</p>
             <p class="text-gray-600 text-sm">Quantity: {{item.quantity}}</p>
             <p class="text-gray-600 text-sm">Unit Price: {{item.cost_per_unit}}</p>
           </div>
