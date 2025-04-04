@@ -143,9 +143,10 @@
                  +
                 </button>
                </div>
-               <a class="bg-brown-600 text-black px-6 py-2 rounded-full border border-indigo-600 hover:bg-indigo-600 hover:text-white" id="addbasket" href = {% url 'cart:add_to_cart' product.product_id '1' 'add' %}>
+               <button onclick ="get_add_cart_message()"
+               class="bg-brown-600 text-black px-6 py-2 rounded-full border border-indigo-600 hover:bg-indigo-600 hover:text-white" id="addbasket" value = {% url 'cart:add_to_cart' product.product_id '1' 'add' %}>
                 ADD TO BASKET
-               </a>
+               </button>
               </div>
               <div class="flex items-center space-x-4">
                <a class="text-gray-600 hover:underline" href="/add-to-wishlist/1/">
@@ -178,13 +179,13 @@
             function update_addcart_url(data, urlpart) {
                 const anchor = document.getElementById("addbasket");
                 if (anchor) {
-                    let url = anchor.getAttribute("href");
+                    let url = anchor.getAttribute("value");
                     let parts = url.split('/');
                     if (parts.length > 3) {
                       parts[urlpart] = data
                     }
                   
-                    anchor.href = parts.join('/');
+                    anchor.value = parts.join('/');
                 }
             }
 
@@ -224,6 +225,24 @@
                 })
                 .catch(error => console.error('Error fetching data:', error));
             }
+
+            function get_add_cart_message() {
+                const anchor = document.getElementById("addbasket");
+
+                fetch(anchor.getAttribute("value"))
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    const responseDiv = document.getElementById("responseMessage");
+                    if (data.success) {
+                        responseDiv.innerHTML = `<p style="color: green;">${data.message}</p>`;
+                    } else {
+                        responseDiv.innerHTML = `<p style="color: red;">${data.message}</p>`;
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            }
+
 
                         
             function updateSize() {

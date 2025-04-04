@@ -16,10 +16,11 @@ urlpatterns = [
         name="order-details-by-id",
     ),
     path(
-        "delivery/availability/",
+        "delivery/availability/<slug:address>/",
         views.check_delivery_availability,
         name="delivery_availability",
     ),
     path("pay/", views.pay, name="pay"),
     path("payment-response/", views.payment_response, name="payment_response"),
+    path("messages/", views.ajax_success_messages, name="ajax_success_messages"),
 ]

@@ -43,23 +43,16 @@
     <body class="">
 
         {% include "html/nav.html"%}     
-        <div class="flex justify-between items-center mb-2 p-4">
-            <button class="bg-black text-white px-4 py-2 rounded-full flex items-center">
-            <i class="fas fa-filter mr-2">
-            </i>
-            Filter
-        </button>
-            <button class="bg-gray-200 text-black px-4 py-2 rounded-full flex items-center">
-            &nbsp;Sort
-            <i class="fas fa-sort ml-2">
-            </i>
-        </button>
-        </div>
-        <form method="get" class="grid">
-            {{ form.as_p }}
-            <button class ="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="submit">Filter</button>
-        </form>
+        <div class="flex justify-end items-center p-4">
+            <!-- Sort Dropdown -->
 
+        <select onchange="location.href='?sort_by=' + this.value;" class="bg-gray-100 border border-gray-300 text-gray-700 p-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Sort By</option>
+            <option value="price_asc">Price: Low to High</option>
+            <option value="price_desc">Price: High to Low</option>
+            <option value="date_added">Newest First</option>
+        </select>
+        </div>
         <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-10 mx-6 pb-8">
             {% if products %}
             {% for prod in products%}

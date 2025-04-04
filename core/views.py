@@ -11,48 +11,30 @@ from django.core.serializers import serialize
 
 
 # Create your views here.
+def sort_by_option(sort_by, products):
+    if sort_by == "price_asc":
+        products = products.order_by("discounted_price")
+    elif sort_by == "price_desc":
+        products = products.order_by("-discounted_price")
+    elif sort_by == "date_added":
+        products = products.order_by("-updated_at")
+    else:
+        products = products  # Default sorting
+    return products
 
 
 def index(request):
     wishlist_cookie = request.COOKIES.get("wishlist", "")
     # Split the string by a delimiter (e.g., comma)
     wishlist_values = wishlist_cookie.split(",")
+    sort_by = request.GET.get("sort_by", "")
     products = Product.objects.all()
-
-    if request.method == "GET":
-        form = ProductFilterForm(request.GET)
-
-        if form.is_valid():
-            category = form.cleaned_data.get("category")
-            size = form.cleaned_data.get("size")
-            color = form.cleaned_data.get("color")
-            min_price = form.cleaned_data.get("min_price")
-            max_price = form.cleaned_data.get("max_price")
-
-            # if category:
-            #     products = products.filter(category=category)
-            # if size:
-            #     products = products.filter(size=size)
-            # if color:
-            #     products = products.filter(
-            #         color__icontains=color
-            #     )  # Case-insensitive search
-            if min_price is not None:
-                products = products.filter(
-                    discounted_price__gte=min_price, is_avaliable=True
-                )
-            if max_price is not None:
-                products = products.filter(
-                    discounted_price__lte=max_price, is_avaliable=True
-                )
-
-    else:
-        form = ProductFilterForm()
+    products = sort_by_option(sort_by, products)
 
     return render(
         request,
         "html/index.html",
-        {"products": products, "form": form, "wishlistcookie": wishlist_values},
+        {"products": products, "wishlistcookie": wishlist_values},
     )
 
 
@@ -166,7 +148,8 @@ def search_products(request):
         ).distinct()
     else:
         products = Product.objects.all()
-
+    sort_by = request.GET.get("sort_by", "")
+    products = sort_by_option(sort_by, products)
     return render(
         request,
         "html/product_listing_page.html",
@@ -177,6 +160,8 @@ def search_products(request):
 def product_by_category(request, category_id, name="collection"):
     category = get_object_or_404(Category, category_id=category_id)
     products = category.product_set.all()  # Use default reverse relation
+    sort_by = request.GET.get("sort_by", "")
+    products = sort_by_option(sort_by, products)
     return render(
         request,
         "html/product_listing_page.html",
