@@ -120,6 +120,7 @@ def cart(request):
 
 
 def add_to_cart(request, product_variation_id, quantity=1, action="add"):
+    err_flag = 0
     cart = request.COOKIES.get("cart", "{}")
     cart = json.loads(cart)  # converts string to dict
 
@@ -143,12 +144,15 @@ def add_to_cart(request, product_variation_id, quantity=1, action="add"):
         quantity = 10
     if product_variation.stock_quantity < quantity:
         quantity = product_variation.stock_quantity
-        messages.info(request, "OOPs, inventory is empty")
+        messages.info(request, "OOPs, low inventory")
+        err_flag = 1
 
     if product_variation_id in cart:
         cart[product_variation_id]["quantity"] = quantity
     else:
+        messages.info(request, "Error while adding")
         quantity = -1
+        err_flag = 1
     # Create response object
     response = HttpResponse(status=204)
 
@@ -175,19 +179,19 @@ def add_to_cart(request, product_variation_id, quantity=1, action="add"):
                     product_variation=product_variation,
                     quantity=quantity,
                 )
-    messages.success(request, "Added to cart")
+    if not err_flag:
+        messages.success(request, "Added to cart")
 
-    # return response
-    return JsonResponse({"success": True, "message": "Message submitted successfully!"})
+    return response
 
 
-def ajax_success_messages(request):
-    # Add a success message (for demonstration purposes)
-    messages.success(request, "Operation completed successfully!")
+def ajax_messages(request):
 
     # Retrieve all messages
     django_messages = []
-    for message in messages.get_messages(request):
+    system_messages = messages.get_messages(request)
+
+    for message in system_messages:
         django_messages.append(
             {
                 "level": message.level,
@@ -195,8 +199,7 @@ def ajax_success_messages(request):
                 "tags": message.tags,
             }
         )
-
-    # Return messages as JSON
+    system_messages.used = True
     return JsonResponse({"messages": django_messages})
 
 

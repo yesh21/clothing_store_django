@@ -22,5 +22,5 @@ urlpatterns = [
     ),
     path("pay/", views.pay, name="pay"),
     path("payment-response/", views.payment_response, name="payment_response"),
-    path("messages/", views.ajax_success_messages, name="ajax_success_messages"),
+    path("ajax-messages/", views.ajax_messages, name="ajax_messages"),
 ]
