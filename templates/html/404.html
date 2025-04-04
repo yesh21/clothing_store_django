@@ -17,7 +17,7 @@
             font-family: 'Playfair Display', serif;
             background-color: #e0e0d1;
         }
-        
+
         #yourDiv.active {
             background-color: red;
             /* Color when active */
@@ -29,33 +29,31 @@
             color: white;
             transition: margin-left 0.3s;
         }
-        
+
         #sidebar.active {
             margin-left: -100vw;
         }
-        
+
         #content {
             width: 100%;
         }
     </style>
 
-    <body class="">
+<body class="">
 
-        {% include "html/nav.html"%}
-        <div class="relative">
-            <img class="h-full" height="600" src={% static 'media/404.jpeg' %} width="1920">
-            <div class="absolute inset-0 flex items-center justify-center">
-                <h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-semibold" style="    font-family: 'Font Awesome 5 Free';">
-                    404: not found :)
-                </h1>
-            </div>
+    {% include "html/nav.html"%}
+    <div class="relative">
+        <img class="h-full" height="600" src={% static 'media/404.jpeg' %} width="1920">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-semibold"
+                style="    font-family: 'Font Awesome 5 Free';">
+                404: not found :)
+            </h1>
         </div>
+    </div>
 
+    {% include "html/footer.html"%}
 
-
-        {% include "html/footer.html"%}
-
-    </body>
-
+</body>
 
 </html>

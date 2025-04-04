@@ -10,21 +10,24 @@
     <script src="https://cdn.tailwindcss.com">
     </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;display=swap"
+        rel="stylesheet">
     <style>
         body {
             font-family: 'Playfair Display', serif;
         }
+
         #yourDiv.active {
             background-color: red;
             /* Color when active */
         }
+
         #sidebar {
             min-height: 100rem;
             color: white;
             transition: margin-left 0.3s;
         }
-        
+
         #sidebar.active {
             margin-left: -100vw;
         }
@@ -37,7 +40,7 @@
         <div class="flex justify-between items-center mb-4">
             <a class="text-gray-600" href="/">
                 <i class="fas fa-arrow-left">
-             </i> CONTINUE SHOPPING
+                </i> CONTINUE SHOPPING
             </a>
             <div class="text-center">
                 <p class="text-sm text-gray-500">
@@ -51,81 +54,87 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div value="left-box">
                 <a href={% url 'cart:cart' %}>
-                <div class="border-t border-b border-gray-300 py-4">
-                    <p class="text-center text-gray-700 text-xl font-serif">1. Shipping</p>
-                </div>
+                    <div class="border-t border-b border-gray-300 py-4">
+                        <p class="text-center text-gray-700 text-xl font-serif">1. Shipping</p>
+                    </div>
                 </a>
                 <div>
                     <h2 class="text-2xl py-2 font-bold mb-4">
                         2. Delivery
                     </h2>
-                        <ul>
-                            {% for time, status in delivery_info.items %}
-                                <li class="py-2 border-b border-gray-200">
-                                    <span class="text-lg">{{ time }} Delivery:</span>
-                                    <span class="ml-2 text-lg ">{{ status }}</span>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                
+                    <ul>
+                        {% for time, status in delivery_info.items %}
+                        <li class="py-2 border-b border-gray-200">
+                            <span class="text-lg">{{ time }} Delivery:</span>
+                            <span class="ml-2 text-lg ">{{ status }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
                 </div>
                 <form action="{% url 'cart:pay' %}" method="get">
 
-                <div class="text-center mt-8 pb-4">
-                    <button type="submit" class="bg-gray-300 text-gray-700 p-4 rounded hover:bg-red-400 hover:text-white">
-                     PAY Rs.{{billing_details.total}}
-                    </button>
-                </div>
-            </form>
+                    <div class="text-center mt-8 pb-4">
+                        <button type="submit"
+                            class="bg-gray-300 text-gray-700 p-4 rounded hover:bg-red-400 hover:text-white">
+                            PAY Rs.{{billing_details.total}}
+                        </button>
+                    </div>
+                </form>
                 <div class="border-t border-gray-300 py-4">
                     <p class="text-center text-gray-700 text-xl font-serif">3. Payment</p>
                 </div>
-                
+
             </div>
             <div class="bg-gray-50 p-4 rounded">
                 {% for cart_item, product_variety in cart_product_items_details %}
                 <div class="flex items-center justify-between mb-4">
                     <a href="/products/{{ product_variety.product.product_id }}/">
 
-                    {% if cart_item.quantity > product_variety.stock_quantity %}
-                        <span class="text-sm px-2 text-red-400">OOPs, only "{{ product_variety.stock_quantity }}" peice(s) available</span>
-                            <div class="flex items-center mb-4 opacity-50">
-                    {% else %}
+                        {% if cart_item.quantity > product_variety.stock_quantity %}
+                        <span class="text-sm px-2 text-red-400">OOPs, only "{{ product_variety.stock_quantity }}"
+                            peice(s) available</span>
+                        <div class="flex items-center mb-4 opacity-50">
+                            {% else %}
                             <div class="flex items-center mb-4">
-                    {% endif %}
+                                {% endif %}
 
-                        <img alt="Image of Felix Quarter Zip Jumper" class="w-12 h-12 rounded mr-4" src={{"/"}}{{product_variety.product.images_files }} />
-                        <div>
-                            <h3 class="text-lg font-bold">
-                                {{product_variety.product.name}}
-                            </h3>
-                            <p class="text-sm text-gray-500">
-                                {{product_variety.color.name}} / {{product_variety.size.name}}
-                            </p>
-                        </div>
-                    </div>
-                </a>
+                                <img alt="Image of Felix Quarter Zip Jumper" class="w-12 h-12 rounded mr-4"
+                                    src={{"/"}}{{product_variety.product.images_files }} />
+                                <div>
+                                    <h3 class="text-lg font-bold">
+                                        {{product_variety.product.name}}
+                                    </h3>
+                                    <p class="text-sm text-gray-500">
+                                        {{product_variety.color.name}} / {{product_variety.size.name}}
+                                    </p>
+                                </div>
+                            </div>
+                    </a>
                     <div class="text-right">
                         <div class="flex items-center justify-end">
                             {% if cart_item.quantity <= 0 %}
-                            <a class="text-red-500" onclick ="dropQuantity(); fetchMessages();" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "subtract"  %}>
+                            <a class="text-red-500" onclick="dropQuantity(); fetchMessages();"
+                                href={% url 'cart:add_to_cart' product_variety.product_variation_id '1' "subtract"  %}>
                                 remove
                             </a>
                             {% else %}
-                            <a class="text-gray-500" onclick ="dropQuantity(); fetchMessages();" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "subtract" %}>
+                            <a class="text-gray-500" onclick="dropQuantity(); fetchMessages();"
+                                href={% url 'cart:add_to_cart' product_variety.product_variation_id '1' "subtract" %}>
                                 -
                             </a>
                             {% endif %}
-                            <span class="mx-2" id = "quanitySelected">
+                            <span class="mx-2" id="quanitySelected">
                                 {{cart_item.quantity}}
-                     </span>
-                            <a class="text-gray-500" onclick ="addQuantity(); fetchMessages();" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "add" %}>
-                                 +
+                            </span>
+                            <a class="text-gray-500" onclick="addQuantity(); fetchMessages();"
+                                href={% url 'cart:add_to_cart' product_variety.product_variation_id '1' "add" %}>
+                                +
                             </a>
                         </div>
                         <p class="font-bold">
                             {% if product_variety.issued_price > product_variety.selling_price %}
-                            <span class = "text-gray-500 line-through"> {{product_variety.issued_price}}</span>
+                            <span class="text-gray-500 line-through"> {{product_variety.issued_price}}</span>
                             {% endif %}
                             {{product_variety.selling_price}}
                         </p>
@@ -134,10 +143,11 @@
                 {% endfor %}
 
                 <div class="flex mb-4">
-                    <input class="w-full border border-gray-300 p-2 rounded-l" placeholder="Discount code or gift card" type="text" />
+                    <input class="w-full border border-gray-300 p-2 rounded-l" placeholder="Discount code or gift card"
+                        type="text" />
                     <button class="bg-gray-200 text-gray-700 p-2 rounded-r">
-       Apply
-      </button>
+                        Apply
+                    </button>
                 </div>
                 <div class="flex justify-between mb-2">
                     <span>Subtotal</span>
@@ -169,19 +179,19 @@
     </div>
     {% include "html/footer.html"%}
     <script>
-        function addQuantity(){
+        function addQuantity() {
             const prevSpan = event.target.previousElementSibling;
             if (prevSpan.innerHTML < 10 && prevSpan.id === 'quanitySelected') {
                 prevSpan.innerHTML++;
             }
         }
-        function dropQuantity(){
+
+        function dropQuantity() {
             const nextSpan = event.target.nextElementSibling;
             if (nextSpan.innerHTML > 0 && nextSpan.id === 'quanitySelected') {
                 nextSpan.innerHTML--;
             }
         }
-
     </script>
 </body>
 

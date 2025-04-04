@@ -4,27 +4,27 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>
-        Checkout Page
-    </title>
-    <script src="https://cdn.tailwindcss.com">
-    </script>
+    <title>Checkout Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;display=swap"
+        rel="stylesheet">
     <style>
         body {
             font-family: 'Playfair Display', serif;
         }
+
         #yourDiv.active {
             background-color: red;
             /* Color when active */
         }
+
         #sidebar {
             min-height: 100rem;
             color: white;
             transition: margin-left 0.3s;
         }
-        
+
         #sidebar.active {
             margin-left: -100vw;
         }
@@ -38,7 +38,7 @@
         <div class="flex justify-between items-center mb-4">
             <a class="text-gray-600" href="/">
                 <i class="fas fa-arrow-left">
-             </i> CONTINUE SHOPPING
+                </i> CONTINUE SHOPPING
             </a>
             <div class="text-center">
                 <p class="text-sm text-gray-500">
@@ -53,14 +53,14 @@
             <div value="left-box">
                 <div class="flex justify-center space-x-4 mb-4">
                     <button class="bg-blue-800 text-white py-2 px-4 rounded">
-       shop
-       <span class="font-bold">
-        Amazon
-       </span>
-      </button>
+                        shop
+                        <span class="font-bold">
+                            Amazon
+                        </span>
+                    </button>
                     <button class="bg-yellow-400 text-black py-2 px-4 rounded">
-       Flipkart
-      </button>
+                        Flipkart
+                    </button>
                 </div>
                 <div class="text-center text-gray-500 mb-4">
                     OR
@@ -73,7 +73,7 @@
                     <div class="flex items-center mb-4">
                         <input class="mr-2" id="news-offers" type="checkbox">
                         <label class="text-sm" for="news-offers">
-                         Email me with news and offers
+                            Email me with news and offers
                         </label>
                     </div>
                     <h2 class="text-2xl font-bold mb-4">
@@ -84,67 +84,67 @@
 
                         <div class="mb-4">
                             <label class="block mb-2" for="id_country">
-                       Country
-                      </label>
-                      {{form.country}}
+                                Country
+                            </label>
+                            {{form.country}}
                         </div>
                         <div class="mb-4">
                             <label class="block mb-2" for="id_email">
-                       Email
-                      </label>
-                      {{form.email}}
+                                Email
+                            </label>
+                            {{form.email}}
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <div>
                                 <label class="block mb-2" for="id_first_name" required>
-                        First Name
-                       </label>
-                       {{form.first_name}}
-                    </div>
+                                    First Name
+                                </label>
+                                {{form.first_name}}
+                            </div>
                             <div>
                                 <label class="block mb-2" for="id_last_name">
-                        Last Name
-                       </label>
-                       {{form.last_name}}
-                    </div>
+                                    Last Name
+                                </label>
+                                {{form.last_name}}
+                            </div>
                         </div>
                         <div class="mb-4">
                             <label class="block mb-2" for="id_address1">
-                       Address
-                      </label>
-                      {{form.address1}}
+                                Address
+                            </label>
+                            {{form.address1}}
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <div>
                                 <label class="block mb-2" for="id_postal_code">
-                        Postal Code
-                       </label>
-                       {{form.postal_code}}
-                    </div>
+                                    Postal Code
+                                </label>
+                                {{form.postal_code}}
+                            </div>
                             <div>
                                 <label class="block mb-2" for="id_city">
-                        City
-                       </label>
-                       {{form.city}}
-                    </div>
+                                    City
+                                </label>
+                                {{form.city}}
+                            </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <div>
                                 <label class="block mb-2" for="id_state">
-                        Region/State
-                       </label>
-                       {{form.state}}
-                    </div>
+                                    Region/State
+                                </label>
+                                {{form.state}}
+                            </div>
                             <div>
                                 <label class="block mb-2" for="id_phone_number">
-                        Phone Number
-                       </label>
-                       {{form.phone_number}}
-                    </div>
+                                    Phone Number
+                                </label>
+                                {{form.phone_number}}
+                            </div>
                         </div>
                         <div class="text-center mt-8 pb-4">
                             <button class="bg-gray-300 text-gray-700 p-4 rounded hover:bg-red-400 hover:text-white">
-                             PROCEED TO DELIVERY
+                                PROCEED TO DELIVERY
                             </button>
                         </div>
                     </form>
@@ -164,46 +164,50 @@
                 <div class="flex items-center justify-between mb-4">
                     <a href="/products/{{ product_variety.product.product_id }}/">
 
-                    {% if cart_item.quantity > product_variety.stock_quantity %}
-                        <span class="text-sm px-2 text-red-400">OOPs, only "{{ product_variety.stock_quantity }}" peice(s) available</span>
-                            <div class="flex items-center mb-4 opacity-50">
-                    {% else %}
+                        {% if cart_item.quantity > product_variety.stock_quantity %}
+                        <span class="text-sm px-2 text-red-400">OOPs, only "{{ product_variety.stock_quantity }}"
+                            peice(s) available</span>
+                        <div class="flex items-center mb-4 opacity-50">
+                            {% else %}
                             <div class="flex items-center mb-4">
-                    {% endif %}
+                                {% endif %}
 
-                        <img alt="Image of Felix Quarter Zip Jumper" class="w-12 h-12 rounded mr-4" src={{"/"}}{{product_variety.product.images_files }} />
-                        <div>
-                            <h3 class="text-lg font-bold">
-                                {{product_variety.product.name}}
-                            </h3>
-                            <p class="text-sm text-gray-500">
-                                {{product_variety.color.name}} / {{product_variety.size.name}}
-                            </p>
-                        </div>
-                    </div>
-                </a>
+                                <img alt="Image of Felix Quarter Zip Jumper" class="w-12 h-12 rounded mr-4"
+                                    src={{"/"}}{{product_variety.product.images_files }} />
+                                <div>
+                                    <h3 class="text-lg font-bold">
+                                        {{product_variety.product.name}}
+                                    </h3>
+                                    <p class="text-sm text-gray-500">
+                                        {{product_variety.color.name}} / {{product_variety.size.name}}
+                                    </p>
+                                </div>
+                            </div>
+                    </a>
                     <div class="text-right">
                         <div class="flex items-center justify-end">
                             {% if cart_item.quantity <= 0 %}
-                            <a class="text-red-500"
-                            onclick ="dropQuantity(); fetchMessages();" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "subtract"  %}>
+                            <a class="text-red-500" onclick="dropQuantity(); fetchMessages();"
+                                href={% url 'cart:add_to_cart' product_variety.product_variation_id '1' "subtract"  %}>
                                 remove
                             </a>
                             {% else %}
-                            <a class="text-gray-500" onclick ="dropQuantity(); fetchMessages();" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "subtract" %}>
+                            <a class="text-gray-500" onclick="dropQuantity(); fetchMessages();"
+                                href={% url 'cart:add_to_cart' product_variety.product_variation_id '1' "subtract" %}>
                                 -
                             </a>
                             {% endif %}
-                            <span class="mx-2" id = "quanitySelected">
+                            <span class="mx-2" id="quanitySelected">
                                 {{cart_item.quantity}}
-                     </span>
-                            <a class="text-gray-500" onclick ="addQuantity(); fetchMessages();" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "add" %}>
-                                 +
+                            </span>
+                            <a class="text-gray-500" onclick="addQuantity(); fetchMessages();"
+                                href={% url 'cart:add_to_cart' product_variety.product_variation_id '1' "add" %}>
+                                +
                             </a>
                         </div>
                         <p class="font-bold">
                             {% if product_variety.issued_price > product_variety.selling_price %}
-                            <span class = "text-gray-500 line-through"> {{product_variety.issued_price}}</span>
+                            <span class="text-gray-500 line-through"> {{product_variety.issued_price}}</span>
                             {% endif %}
                             {{product_variety.selling_price}}
                         </p>
@@ -212,10 +216,11 @@
                 {% endfor %}
 
                 <div class="flex mb-4">
-                    <input class="w-full border border-gray-300 p-2 rounded-l" placeholder="Discount code or gift card" type="text" />
+                    <input class="w-full border border-gray-300 p-2 rounded-l" placeholder="Discount code or gift card"
+                        type="text" />
                     <button class="bg-gray-200 text-gray-700 p-2 rounded-r">
-       Apply
-      </button>
+                        Apply
+                    </button>
                 </div>
                 <div class="flex justify-between mb-2">
                     <span>Subtotal</span>
@@ -247,19 +252,19 @@
     </div>
     {% include "html/footer.html"%}
     <script>
-        function addQuantity(){
+        function addQuantity() {
             const prevSpan = event.target.previousElementSibling;
             if (prevSpan.innerHTML < 10 && prevSpan.id === 'quanitySelected') {
                 prevSpan.innerHTML++;
             }
         }
-        function dropQuantity(){
+
+        function dropQuantity() {
             const nextSpan = event.target.nextElementSibling;
             if (nextSpan.innerHTML > 0 && nextSpan.id === 'quanitySelected') {
                 nextSpan.innerHTML--;
             }
         }
-
     </script>
 </body>
 

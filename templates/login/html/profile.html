@@ -1,44 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>
-        hOOdWORK
-    </title>
-    <script src="https://cdn.tailwindcss.com">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Playfair Display', serif;
-        }
-        
-        #yourDiv.active {
-            background-color: red;
-            /* Color when active */
-        }
-    </style>
-    <style>
-        #sidebar {
-            min-height: 100rem;
-            color: white;
-            transition: margin-left 0.3s;
-        }
-        
-        #sidebar.active {
-            margin-left: -100vw;
-        }
-        
-        #content {
-            width: 100%;
-        }
-    </style>
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>
+    hOOdWORK
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+    }
+
+    #yourDiv.active {
+      background-color: red;
+      /* Color when active */
+    }
+
+    #sidebar {
+      min-height: 100rem;
+      color: white;
+      transition: margin-left 0.3s;
+    }
+
+    #sidebar.active {
+      margin-left: -100vw;
+    }
+
+    #content {
+      width: 100%;
+    }
+  </style>
 </head>
+
 <body class="font-sans">
-  {% include "html/nav.html"%}  
+  {% include "html/nav.html"%}
   <!-- Main Container -->
   <div class="min-h-screen flex flex-col items-center justify-center py-10">
     <!-- Profile Card -->
@@ -46,11 +47,7 @@
       {% if email %}
       <!-- Profile Header -->
       <div class="flow items-center space-x-6 border-b pb-6">
-        <img
-          src="https://via.placeholder.com/100"
-          alt="User Avatar"
-          class="w-24 h-24 rounded-full border"
-        />
+        <img src="https://via.placeholder.com/100" alt="User Avatar" class="w-24 h-24 rounded-full border" />
         <div>
           <h2 class="text-xl font-bold text-gray-800">{{ full_name }}</h2>
           <p class="text-gray-500">{{ email }}</p>
@@ -64,164 +61,140 @@
     color: black;"></i>
         </a>
 
-
       </div>
       {% endif %}
 
       <!-- Tabs Section -->
       <div class="mt-6">
         <div class="flex space-x-4 border-b pb-2 text-gray-600">
-          <a class="cursor-pointer hover:text-blue-500" data-tab-toggle="#tab_1" href="{% url "login:users-profile"%}">Overview</a>
-          <a class="cursor-pointer hover:text-blue-500" data-tab-toggle="#tab_2" href="/profile/#tab_2" >Order History</a>
-          <a class="cursor-pointer hover:text-blue-500" data-tab-toggle="#tab_3" href="/forgot/#tab_3">Account Settings</a>
-          </div>
+          <a class="cursor-pointer hover:text-blue-500" data-tab-toggle="#tab_1"
+            href="{% url "login:users-profile"%}">Overview</a>
+          <a class="cursor-pointer hover:text-blue-500" data-tab-toggle="#tab_2" href="/profile/#tab_2">Order
+            History</a>
+          <a class="cursor-pointer hover:text-blue-500" data-tab-toggle="#tab_3" href="/forgot/#tab_3">Account
+            Settings</a>
+        </div>
       </div>
       <div id="tab_1" class="tab-content">
-                <!-- Overview Section -->
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Personal Information</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">full name</label>
-                    <input
-                      type="text"
-                      value="{{ full_name}}"
-                      disabled
-                      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">email</label>
-                    <input
-                      type="email"
-                      value="{{ email }}"
-                      disabled
-                      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    />
-                  </div>
-                </div>
+        <!-- Overview Section -->
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Personal Information</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">full name</label>
+            <input type="text" value="{{ full_name}}" disabled
+              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">email</label>
+            <input type="email" value="{{ email }}" disabled
+              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+          </div>
+        </div>
       </div>
       <div id="tab_2" class="hidden tab-content">
-                <!-- Order History Section -->
-                <h3 class="text-lg font-semibold text-gray-800 mt-8 mb-4">Order History</h3>
-                <table class="min-w-full bg-white border rounded-md shadow-sm">
-                  <thead>
-                    <tr>
-                      <th class="px-4 py-2 border-b text-left text-sm font-medium text-gray-700">Order ID</th>
-                      <th class="px-4 py-2 border-b text-left text-sm font-medium text-gray-700">Amount</th>
-                      <th class="px-4 py-2 border-b text-left text-sm font-medium text-gray-700 hidden md:block">Date</th>
-                      <th class="px-4 py-2 border-b text-left text-sm font-medium text-gray-700 hidden md:block">status</th>
-                      <th class="px-4 py-2 border-b"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for order in orders %}
-                    <!-- Example Order Row -->
-                    <tr>
-                      <td class="px-4 py-2 border-b">{{ order.order_id }}</td>
-                      <td class="px-4 py-2 border-b">{{order.total_amount}}</td>
-                      <td class="px-4 py-2 border-b hidden md:block">{{ order.updated_at }}</td>
-                      <td class="px-4 py-2 border-b hidden md:block">{{order.status}}</td>
-                      <td class="px-4 py-2 border-b">
-                        <a
-                          class="text-blue-500 hover:underline" href = "{% url 'cart:order-details-by-id' order.order_id %}"
-                        >
-                          View Details
-                      </a>
-                      </td>
-                    </tr>
-                    {% endfor %}
-                    <!-- Add more rows as needed -->
-                  </tbody>
-                </table>
+        <!-- Order History Section -->
+        <h3 class="text-lg font-semibold text-gray-800 mt-8 mb-4">Order History</h3>
+        <table class="min-w-full bg-white border rounded-md shadow-sm">
+          <thead>
+            <tr>
+              <th class="px-4 py-2 border-b text-left text-sm font-medium text-gray-700">Order ID</th>
+              <th class="px-4 py-2 border-b text-left text-sm font-medium text-gray-700">Amount</th>
+              <th class="px-4 py-2 border-b text-left text-sm font-medium text-gray-700 hidden md:block">Date</th>
+              <th class="px-4 py-2 border-b text-left text-sm font-medium text-gray-700 hidden md:block">status</th>
+              <th class="px-4 py-2 border-b"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+            <!-- Example Order Row -->
+            <tr>
+              <td class="px-4 py-2 border-b">{{ order.order_id }}</td>
+              <td class="px-4 py-2 border-b">{{order.total_amount}}</td>
+              <td class="px-4 py-2 border-b hidden md:block">{{ order.updated_at }}</td>
+              <td class="px-4 py-2 border-b hidden md:block">{{order.status}}</td>
+              <td class="px-4 py-2 border-b">
+                <a class="text-blue-500 hover:underline" href="{% url 'cart:order-details-by-id' order.order_id %}">
+                  View Details
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
       </div>
       <div id="tab_3" class="hidden tab-content">
-                <!-- Account Settings Section -->
-                <h3 class="text-lg font-semibold text-gray-800 mt-8 mb-4">Account Settings</h3>
-                <form action="#tab_3" method="POST">
-                  {% csrf_token %}
-                  <!-- Password Update -->
-                  <div class="mb-4 w-full relative">
-                    <label for="current-password" class="block text-sm font-medium text-gray-700 ">Current Password</label>
-                    <input type="password" name="old_password" autocomplete="new-password" required id="id_old_password"
-                      class="mt-1 block w-full border-b-2 focus:outline-none focus:border-gray-900"
-                    />
-                    <button onclick="showPassword()"> 
-                      <i class="fas fa-eye absolute right-6 top-6 text-gray-500">
-                      </i>
-                   </button>
-                    <ul style="color: red;">{{ form.errors.old_password }}</ul>
-                  </div>
-        
-                  <!-- New Password -->
-                  <div class="mb-4 w-full relative">
-                    <label for="new-password" class="block text-sm font-medium text-gray-700">New Password</label>
-                    <input type="password" name="new_password1" autocomplete="new-password"
-                                                               required id="id_new_password1"
-                      class="mt-1 block w-full border-b-2 focus:outline-none focus:border-gray-900"
-                    />
-                    <ul style="color: red;">{{ form.errors.new_password1 }}</ul>
-                  </div>
-        
-                  <div class="mb-4 w-full relative">
-                    <label for="new-password" class="block text-sm font-medium text-gray-700">New Password</label>
-                    <input type="password" name="new_password2" autocomplete="new-password"
-                                                               required id="id_new_password2"
-                      class="mt-1 block w-full border-b-2 focus:outline-none focus:border-gray-900"
-                    />
-                    <button onclick="showPassword()"> 
-                      <i class="fas fa-eye absolute right-6 top-6 text-gray-500">
-                      </i>
-                   </button>
-                    <ul style="color: red;">{{ form.errors.new_password2 }}</ul>   
-                  </div>
-        
-                  <!-- Save Button -->
-                  <button type="submit" class="
+        <!-- Account Settings Section -->
+        <h3 class="text-lg font-semibold text-gray-800 mt-8 mb-4">Account Settings</h3>
+        <form action="#tab_3" method="POST">
+          {% csrf_token %}
+          <!-- Password Update -->
+          <div class="mb-4 w-full relative">
+            <label for="current-password" class="block text-sm font-medium text-gray-700 ">Current Password</label>
+            <input type="password" name="old_password" autocomplete="new-password" required id="id_old_password"
+              class="mt-1 block w-full border-b-2 focus:outline-none focus:border-gray-900" />
+            <button onclick="showPassword()">
+              <i class="fas fa-eye absolute right-6 top-6 text-gray-500">
+              </i>
+            </button>
+            <ul style="color: red;">{{ form.errors.old_password }}</ul>
+          </div>
+
+          <!-- New Password -->
+          <div class="mb-4 w-full relative">
+            <label for="new-password" class="block text-sm font-medium text-gray-700">New Password</label>
+            <input type="password" name="new_password1" autocomplete="new-password" required id="id_new_password1"
+              class="mt-1 block w-full border-b-2 focus:outline-none focus:border-gray-900" />
+            <ul style="color: red;">{{ form.errors.new_password1 }}</ul>
+          </div>
+
+          <div class="mb-4 w-full relative">
+            <label for="new-password" class="block text-sm font-medium text-gray-700">New Password</label>
+            <input type="password" name="new_password2" autocomplete="new-password" required id="id_new_password2"
+              class="mt-1 block w-full border-b-2 focus:outline-none focus:border-gray-900" />
+            <button onclick="showPassword()">
+              <i class="fas fa-eye absolute right-6 top-6 text-gray-500">
+              </i>
+            </button>
+            <ul style="color: red;">{{ form.errors.new_password2 }}</ul>
+          </div>
+
+          <!-- Save Button -->
+          <button type="submit" class="
                   bg-green-500 hover:bg-green-light py-2 px-10 rounded-md ">Save</button>
-                </form>
+        </form>
       </div>
-    
+
       <!-- Content Section -->
       <div class="mt-6">
 
-
-
-
-
-</div>
-</div>
-</div>
-{% include "html/footer.html"%}
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    function activateTab() {
+      </div>
+    </div>
+  </div>
+  {% include "html/footer.html"%}
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      function activateTab() {
         var hash = window.location.hash; // Get the hash from the URL
         var tabs = document.querySelectorAll('.tab-content'); // Select all tab contents
-        
         // Hide all tabs initially
         tabs.forEach(function(tab) {
-            tab.style.display = 'none';
+          tab.style.display = 'none';
         });
-
         // Show the tab that matches the hash
         if (hash) {
-            var activeTab = document.querySelector(hash);
-            if (activeTab) {
-                activeTab.style.display = 'block'; // Show the active tab
-            }
+          var activeTab = document.querySelector(hash);
+          if (activeTab) {
+            activeTab.style.display = 'block'; // Show the active tab
+          }
         } else {
-            // Optionally show a default tab if no hash is present
-            tabs[0].style.display = 'block'; // Show first tab by default
+          // Optionally show a default tab if no hash is present
+          tabs[0].style.display = 'block'; // Show first tab by default
         }
-    }
-
-    activateTab(); // Call the function to activate the correct tab
-
-    // Optional: Change tab on hash change
-    window.addEventListener('hashchange', activateTab);
-});
-  
-</script>
+      }
+      activateTab(); // Call the function to activate the correct tab
+      // Optional: Change tab on hash change
+      window.addEventListener('hashchange', activateTab);
+    });
+  </script>
 </body>
-
-

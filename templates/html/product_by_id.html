@@ -17,277 +17,259 @@
             font-family: 'Playfair Display', serif;
             background-color: #e0e0d1;
         }
-        
+
         #yourDiv.active {
             background-color: red;
             /* Color when active */
         }
+
         ::-webkit-scrollbar {
             -webkit-appearance: none;
             width: 1px;
-          }
-          
-          ::-webkit-scrollbar-thumb {
+        }
+
+        ::-webkit-scrollbar-thumb {
             border-radius: 5px;
-            background-color: rgba(0,0,0,.5);
-          }
+            background-color: rgba(0, 0, 0, .5);
+        }
+
         #sidebar {
             min-height: 100rem;
             color: white;
             transition: margin-left 0.3s;
         }
-        
+
         #sidebar.active {
             margin-left: -100vw;
         }
-        
+
         #content {
             width: 100%;
         }
     </style>
 
-    <body class="">
+<body class="">
 
-        {% include "html/nav.html"%}
+    {% include "html/nav.html"%}
 
-        <div class="container mx-auto p-4">
-            <nav class="flex items-center space-x-2 text-sm text-gray-600 mb-4">
-             <a class="hover:underline" href="#">
-              Home
-             </a>
-             <span> / </span>
-             <a class="hover:underline" href="#">All</a>
-            </nav>
-            <div class="flex flex-col lg:flex-row">
-             <div class="flex-1 flex space-x-4" style= "overflow-x: scroll">
-              <img alt="Model wearing Cove Crew Jumper" class="w-3/4 object-cover" src="https://placehold.co/300x400">
-              <img alt="Cove Crew Jumper" class="w-3/4 object-cover" src="https://placehold.co/300x400">
-              <img alt="Model wearing Cove Crew Jumper" class="w-3/4 object-cover" src="https://placehold.co/300x400">
-              <img alt="Model wearing Cove Crew Jumper" class="w-3/4 object-cover" src="https://placehold.co/300x400">
-             </div>
-             <div class="flex-1 mt-4 lg:mt-0 lg:ml-8">
-              <div class="flex items-center space-x-2 mb-2">
-               <span class="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">
-                {{ product.tags }}
-               </span>
-              </div>
-              <h1 class="text-4xl font-bold mb-2">
-                {{ product.name }}
-              </h1>
-              <p class="text-2xl text-red-600 mb-4">
-               Rs.                {{ product.discounted_price }}
-
-              </p>
-              <div class="mb-4">
-               <span class="font-bold">
-                Colour:
-               </span>
-               <span class="text-gray-600" id ="colorSelected">
-                Washed Denim
-               </span>
-               <div class="flex items-center space-x-2 mt-2">
-                {% for color in colors %}
-                <button onclick = "updateColor()" id="colorButton" 
-                class="w-8 h-8 rounded-full bg-gray-400" 
-                value = "{{color.name }}" style="background: {{ color.hex_code }}">
-                <span class="hidden">{{ color.color_id }}</span>
-                </button>
-                {% endfor %}
-               </div>
-              </div>
-              <div class="mb-4">
-               <span class="font-bold">
-                Size:
-               </span>
-               <span id = "sizeSelected" class="text-gray-600">
-                M
-               </span>
-               <span id = "sizeidSelected"class="hidden"></span>
-
-               <div class="flex space-x-2 mt-2 p-2">
-                {% for size in sizes %}
-                <button onclick="updateSize()" id="sizeButton" value="{{ size.size_id }}" class="px-2 rounded-full">
-                 {{ size.name }} 
-                 <span class="hidden">{{ size.size_id }}</span>
-                </button>
-                {% endfor %}
-                <a id="openModal" class="text-gray-600 underline ml-2" >
-                 Size guide
-                </a>
-                
-               </div>
-               <div id="myModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-                <div class="bg-white w-1/2 p-6 rounded shadow-lg">
-                    <div class ="flex">
-                        <h>Size guide
-                        </h>
-                    <a class="ml-auto text-l" id="closeModal">
-                        &#x2715;
-                    </a>
-                </div>
-              </div>
-              </div>
-              <div class="flex items-center space-x-4 mb-4">
-               <div class="flex items-center border-2 border-gray-400 rounded-full px-2 py-1">
-                <button onclick ="dropQuantity()" class="text-gray-600">
-                 -
-                </button>
-                <span id = "quantitySelected" class="mx-2">
-                 1
-                </span>
-                <button onclick ="addQuantity()" class="text-gray-600">
-                 +
-                </button>
-               </div>
-               <a onclick ="fetchMessages()"
-               class="bg-brown-600 text-black px-6 py-2 rounded-full border border-indigo-600 hover:bg-indigo-600 hover:text-white" 
-               id="addbasket" href = {% url 'cart:add_to_cart' product.product_id '1' 'add' %}>
-                ADD TO BASKET
-               </a>
-              </div>
-              <div class="flex items-center space-x-4">
-               <a class="text-gray-600 hover:underline" href="/add-to-wishlist/1/">
-                <i class="far fa-heart">
-                </i>
-                Add to wishlist
-               </a>
-               <a class="text-gray-600 hover:underline" href="/">
-                <i class="fas fa-arrow-left">
-                </i>
-                Return to collection
-               </a>
-              </div>
-             </div>
+    <div class="container mx-auto p-4">
+        <nav class="flex items-center space-x-2 text-sm text-gray-600 mb-4">
+            <a class="hover:underline" href="#">
+                Home
+            </a>
+            <span> / </span>
+            <a class="hover:underline" href="#">All</a>
+        </nav>
+        <div class="flex flex-col lg:flex-row">
+            <div class="flex-1 flex space-x-4" style="overflow-x: scroll">
+                <img alt="Model wearing Cove Crew Jumper" class="w-3/4 object-cover" src="https://placehold.co/300x400">
+                <img alt="Cove Crew Jumper" class="w-3/4 object-cover" src="https://placehold.co/300x400">
+                <img alt="Model wearing Cove Crew Jumper" class="w-3/4 object-cover" src="https://placehold.co/300x400">
+                <img alt="Model wearing Cove Crew Jumper" class="w-3/4 object-cover" src="https://placehold.co/300x400">
             </div>
-           </div>
+            <div class="flex-1 mt-4 lg:mt-0 lg:ml-8">
+                <div class="flex items-center space-x-2 mb-2">
+                    <span class="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">
+                        {{ product.tags }}
+                    </span>
+                </div>
+                <h1 class="text-4xl font-bold mb-2">
+                    {{ product.name }}
+                </h1>
+                <p class="text-2xl text-red-600 mb-4">
+                    Rs. {{ product.discounted_price }}
+
+                </p>
+                <div class="mb-4">
+                    <span class="font-bold">
+                        Colour:
+                    </span>
+                    <span class="text-gray-600" id="colorSelected">
+                        Washed Denim
+                    </span>
+                    <div class="flex items-center space-x-2 mt-2">
+                        {% for color in colors %}
+                        <button onclick="updateColor()" id="colorButton" class="w-8 h-8 rounded-full bg-gray-400"
+                            value="{{color.name }}" style="background: {{ color.hex_code }}">
+                            <span class="hidden">{{ color.color_id }}</span>
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <span class="font-bold">
+                        Size:
+                    </span>
+                    <span id="sizeSelected" class="text-gray-600">
+                        M
+                    </span>
+                    <span id="sizeidSelected" class="hidden"></span>
+
+                    <div class="flex space-x-2 mt-2 p-2">
+                        {% for size in sizes %}
+                        <button onclick="updateSize()" id="sizeButton" value="{{ size.size_id }}"
+                            class="px-2 rounded-full">
+                            {{ size.name }}
+                            <span class="hidden">{{ size.size_id }}</span>
+                        </button>
+                        {% endfor %}
+                        <a id="openModal" class="text-gray-600 underline ml-2">
+                            Size guide
+                        </a>
+
+                    </div>
+                    <div id="myModal"
+                        class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+                        <div class="bg-white w-1/2 p-6 rounded shadow-lg">
+                            <div class="flex">
+                                <h>Size guide
+                                </h>
+                                <a class="ml-auto text-l" id="closeModal">
+                                    &#x2715;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="flex items-center border-2 border-gray-400 rounded-full px-2 py-1">
+                            <button onclick="dropQuantity()" class="text-gray-600">
+                                -
+                            </button>
+                            <span id="quantitySelected" class="mx-2">
+                                1
+                            </span>
+                            <button onclick="addQuantity()" class="text-gray-600">
+                                +
+                            </button>
+                        </div>
+                        <a onclick="fetchMessages()"
+                            class="bg-brown-600 text-black px-6 py-2 rounded-full border border-indigo-600 hover:bg-indigo-600 hover:text-white"
+                            id="addbasket" href={% url 'cart:add_to_cart' product.product_id '1' 'add' %}>
+                            ADD TO BASKET</a>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a class="text-gray-600 hover:underline" href="/add-to-wishlist/1/">
+                            <i class="far fa-heart">
+                            </i>
+                            Add to wishlist
+                        </a>
+                        <a class="text-gray-600 hover:underline" href="/">
+                            <i class="fas fa-arrow-left">
+                            </i>
+                            Return to collection
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 
+    {% include "html/footer.html"%}
 
-        {% include "html/footer.html"%}
+<script>
+    document.getElementById('openModal').addEventListener('click', () => {
+        document.getElementById('myModal').classList.remove('hidden');
+    });
+    document.getElementById('closeModal').addEventListener('click', () => {
+        document.getElementById('myModal').classList.add('hidden');
+    });
 
-        <script>
-            document.getElementById('openModal').addEventListener('click', () => {
-                document.getElementById('myModal').classList.remove('hidden');
-            });
-            document.getElementById('closeModal').addEventListener('click', () => {
-                document.getElementById('myModal').classList.add('hidden');
-            });
-
-            function update_addcart_url(data, urlpart) {
-                const anchor = document.getElementById("addbasket");
-                if (anchor) {
-                    let url = anchor.getAttribute("href");
-                    let parts = url.split('/');
-                    if (parts.length > 3) {
-                      parts[urlpart] = data
-                    }
-                  
-                    anchor.href = parts.join('/');
-                }
+    function update_addcart_url(data, urlpart) {
+        const anchor = document.getElementById("addbasket");
+        if (anchor) {
+            let url = anchor.getAttribute("href");
+            let parts = url.split('/');
+            if (parts.length > 3) {
+                parts[urlpart] = data
             }
+            anchor.href = parts.join('/');
+        }
+    }
 
-            function request_product_info(event, button_type = "color") {
-
-                fetch('/get-product-variation-json/' + {{ product.product_id }} + '/' + document.getElementById("sizeSelected").firstElementChild.textContent +
-                '/' + document.getElementById("colorSelected").firstElementChild.textContent + '/' )
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-
-                    if(data['stock_quantity'] == 0){
-                        if(button_type == "size"){
-                            event.disabled = true;
-                            event.style.opacity = '0.5';
-                        }
-
+    function request_product_info(event, button_type = "color") {
+        fetch('/get-product-variation-json/' + {
+                    {
+                        product.product_id
+                    }
+                } + '/' + document.getElementById("sizeSelected").firstElementChild.textContent +
+                '/' + document.getElementById("colorSelected").firstElementChild.textContent + '/')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data['stock_quantity'] == 0) {
+                    if (button_type == "size") {
+                        event.disabled = true;
+                        event.style.opacity = '0.5';
+                    }
                     var elements = document.querySelectorAll('[id=sizeButton]');
-                    for(var i = 0; i < elements.length; i++) {
-                        elements[i].classList.remove("border-2",  "border-gray-400",  "bg-gray-200");
-                        if(elements[i].innerHTML  ==   document.getElementById("sizeSelected").innerHTML){
-                            elements[i].classList.add("border-2",  "border-gray-400",  "bg-gray-200");
+                    for (var i = 0; i < elements.length; i++) {
+                        elements[i].classList.remove("border-2", "border-gray-400", "bg-gray-200");
+                        if (elements[i].innerHTML == document.getElementById("sizeSelected").innerHTML) {
+                            elements[i].classList.add("border-2", "border-gray-400", "bg-gray-200");
                             elements[i].disabled = true;
                             elements[i].style.opacity = '0.5';
-
                         }
                     }
-
                     document.getElementById("addbasket").classList.add("pointer-events-none", "opacity-50");
-
-                    } else {
-                        update_addcart_url(data["pk"], 2)
-                        document.getElementById("addbasket").classList.remove("pointer-events-none", "opacity-50");
-                    }
-
-
-                })
-                .catch(error => console.error('Error fetching data:', error));
-            }
-
-                        
-            function updateSize() {
-                document.getElementById("sizeSelected").innerHTML = event.target.innerHTML;
-                var elements = document.querySelectorAll('[id=sizeButton]');
-                for(var i = 0; i < elements.length; i++) {
-                    elements[i].classList.remove("border-2",  "border-gray-400",  "bg-gray-200");
+                } else {
+                    update_addcart_url(data["pk"], 2)
+                    document.getElementById("addbasket").classList.remove("pointer-events-none", "opacity-50");
                 }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
 
-                event.srcElement.classList.add("border-2",  "border-gray-400",  "bg-gray-200");
-                request_product_info(event.target, "size");
+    function updateSize() {
+        document.getElementById("sizeSelected").innerHTML = event.target.innerHTML;
+        var elements = document.querySelectorAll('[id=sizeButton]');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].classList.remove("border-2", "border-gray-400", "bg-gray-200");
+        }
+        event.srcElement.classList.add("border-2", "border-gray-400", "bg-gray-200");
+        request_product_info(event.target, "size");
+    }
 
-            }
+    function updateColor() {
+        document.getElementById("colorSelected").innerHTML = event.target.value;
+        document.getElementById("colorSelected").innerHTML += event.target.innerHTML;
+        var elements = document.querySelectorAll('[id=colorButton]');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].classList.remove("border-4", "border-gray-400", "bg-gray-200");
+        }
+        var elements = document.querySelectorAll('[id=sizeButton]');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].style.opacity = '1';
+            elements[i].disabled = false;
+        }
+        event.srcElement.classList.add("border-4", "border-gray-400", "bg-gray-200");
+        request_product_info(event.target, button_type = "color");
+    }
+    try {
+        document.getElementById('sizeButton').classList.add("border-2", "border-gray-400", "bg-gray-200");
+        document.getElementById("sizeSelected").innerHTML = document.getElementById('sizeButton').innerHTML;
+        document.getElementById("colorSelected").innerHTML = document.getElementById('colorButton').value;
+        document.getElementById("colorSelected").innerHTML += document.getElementById('colorButton').innerHTML;
+        document.getElementById('colorButton').classList.add("border-4", "border-gray-400", "bg-gray-200");
+    } catch (error) {
+        console.log(error);
+        document.getElementById("addbasket").classList.add("pointer-events-none", "opacity-50");
+    }
+    request_product_info()
 
-            function updateColor() {
-                document.getElementById("colorSelected").innerHTML = event.target.value;
-                document.getElementById("colorSelected").innerHTML += event.target.innerHTML;
-                var elements = document.querySelectorAll('[id=colorButton]');
-                for(var i = 0; i < elements.length; i++) {
-                    elements[i].classList.remove("border-4",  "border-gray-400",  "bg-gray-200");
-                }
+    function addQuantity() {
+        if (document.getElementById("quantitySelected").innerHTML < 10) {
+            document.getElementById("quantitySelected").innerHTML++;
+            update_addcart_url(document.getElementById("quantitySelected").innerHTML, 3)
+        }
+    }
 
-                var elements = document.querySelectorAll('[id=sizeButton]');
-                for(var i = 0; i < elements.length; i++) {
-                    elements[i].style.opacity = '1';
-                    elements[i].disabled = false;
-                    
-                }
-
-                event.srcElement.classList.add("border-4",  "border-gray-400",  "bg-gray-200");
-                request_product_info(event.target, button_type = "color");
-
-            }
-            try {
-                document.getElementById('sizeButton').classList.add("border-2",  "border-gray-400",  "bg-gray-200");
-                document.getElementById("sizeSelected").innerHTML = document.getElementById('sizeButton').innerHTML;
-                document.getElementById("colorSelected").innerHTML = document.getElementById('colorButton').value;
-                document.getElementById("colorSelected").innerHTML += document.getElementById('colorButton').innerHTML;
-                document.getElementById('colorButton').classList.add("border-4",  "border-gray-400",  "bg-gray-200");
-                  } catch (error) {
-                    console.log(error);
-                    document.getElementById("addbasket").classList.add("pointer-events-none", "opacity-50");
-                  }
-            request_product_info()
-
-
-
-            function addQuantity(){
-                if (document.getElementById("quantitySelected").innerHTML < 10) {
-                    document.getElementById("quantitySelected").innerHTML++;
-                    update_addcart_url(document.getElementById("quantitySelected").innerHTML, 3)
-                }
-            }
-
-
-
-            function dropQuantity(){
-                if (document.getElementById("quantitySelected").innerHTML > 1) {
-                    document.getElementById("quantitySelected").innerHTML--;
-                    update_addcart_url(document.getElementById("quantitySelected").innerHTML, 3)
-                }
-            }
-
-        </script>
-    </body>
-    
-
+    function dropQuantity() {
+        if (document.getElementById("quantitySelected").innerHTML > 1) {
+            document.getElementById("quantitySelected").innerHTML--;
+            update_addcart_url(document.getElementById("quantitySelected").innerHTML, 3)
+        }
+    }
+</script>
+</body>
 
 </html>

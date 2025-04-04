@@ -4,11 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>
-        hOOdWORK
-    </title>
-    <script src="https://cdn.tailwindcss.com">
-    </script>
+    <title>hOOdWORK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -19,68 +16,73 @@
             background-color: #FFFFFF;
             font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
-        
+
         #yourDiv.active {
             background-color: red;
             /* Color when active */
         }
+
         #sidebar {
             min-height: 100rem;
             color: white;
             transition: margin-left 0.3s;
         }
-        
+
         #sidebar.active {
             margin-left: -100vw;
         }
-        
+
         #content {
             width: 100%;
         }
-
     </style>
 
-    <body class="">
+<body class="">
 
-        {% include "html/nav.html"%}     
-        <div class="flex justify-end items-center p-4">
-            <!-- Sort Dropdown -->
+    {% include "html/nav.html"%}
+    <div class="flex justify-end items-center p-4">
+        <!-- Sort Dropdown -->
 
-        <select onchange="location.href='?sort_by=' + this.value;" class="bg-gray-100 border border-gray-300 text-gray-700 p-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <select onchange="location.href='?sort_by=' + this.value;"
+            class="bg-gray-100 border border-gray-300 text-gray-700 p-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="">Sort By</option>
             <option value="price_asc">Price: Low to High</option>
             <option value="price_desc">Price: High to Low</option>
             <option value="date_added">Newest First</option>
         </select>
-        </div>
-        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-10 mx-6 pb-8">
-            {% if products %}
-            {% for prod in products%}
-            {% if prod.is_avaliable%}
-            <div class="lg:p-4 py-8 opacity-0 relative top-1/3" id="yourDiv">
-                <div class="relative">
-                    <a href="/products/{{ prod.product_id }}/">
-                        <div>
-                            <img src={{"/"}}{{prod.images_files }} alt="Default" class="w-full h-3/4 object-cover" height="400">
-                            <img src={{"/"}}{{prod.images_files_back }} alt="Hover" height="400" class="absolute inset-0 w-full h-full object-cover opacity-0 hover:opacity-100 transition duration-1000">
-                          </div>
-                    </a>
-                    <span class="absolute bottom-2 left-2 bg-rose-400 text-white text-xs px-2 py-1" style="background-color:#dd7973">
-                        {{ prod.tags }}
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-10 mx-6 pb-8">
+        {% if products %}
+        {% for prod in products%}
+        {% if prod.is_avaliable%}
+        <div class="lg:p-4 py-8 opacity-0 relative top-1/3" id="yourDiv">
+            <div class="relative">
+                <a href="/products/{{ prod.product_id }}/">
+                    <div>
+                        <img src={{"/"}}{{prod.images_files }} alt="Default" class="w-full h-3/4 object-cover"
+                            height="400">
+                        <img src={{"/"}}{{prod.images_files_back }} alt="Hover" height="400"
+                            class="absolute inset-0 w-full h-full object-cover opacity-0 hover:opacity-100 transition duration-1000">
+                    </div>
+                </a>
+                <span class="absolute bottom-2 left-2 bg-rose-400 text-white text-xs px-2 py-1"
+                    style="background-color:#dd7973">
+                    {{ prod.tags }}
                 </span>
-                    <button class="absolute top-4 right-4 bg-white rounded-full px-2 py-1 shadow-md fas text-red-600" onclick="wishlistHeart()">
+                <button class="absolute top-4 right-4 bg-white rounded-full px-2 py-1 shadow-md fas text-red-600"
+                    onclick="wishlistHeart()">
                     <a href="/add-to-wishlist/{{ prod.product_id }}/">
                         {% if prod.product_id|stringformat:"s" in wishlistcookie %}
                         <i class="far fa-heart text-xl fas fas-heart">
                         </i>
                         {% else%}
-                    <i class="far fa-heart text-xl">
-                    </i>
-                    {% endif%}
-                </a>
+                        <i class="far fa-heart text-xl">
+                        </i>
+                        {% endif%}
+                    </a>
                 </button>
-                </div>
-                <a href="/products/{{ prod.product_id }}/">
+            </div>
+            <a href="/products/{{ prod.product_id }}/">
                 <div class="flex space-x-2 mb-4 py-2">
                     <div class="w-4 h-4 rounded-full bg-[#4b3621]"></div>
                     <div class="w-4 h-4 rounded-full bg-[#b5b097]"></div>
@@ -95,10 +97,10 @@
                     {% if prod.base_price > prod.discounted_price %}
 
                     <span class="line-through text-sm text-gray-500">
-                    ₹{{ prod.base_price }}
+                        ₹{{ prod.base_price }}
                     </span>
                     <span class="text-red-600 font-bold">
-                    ₹{{ prod.discounted_price }}
+                        ₹{{ prod.discounted_price }}
                     </span>
 
                     {% else %}
@@ -108,11 +110,11 @@
                     {% endif %}
                 </div>
             </a>
-            </div>
-            {% endif%}
-            {% endfor%}
-            {% endif%}
         </div>
+        {% endif%}
+        {% endfor%}
+        {% endif%}
+    </div>
     </div>
 
     {% if not products %}
@@ -120,48 +122,43 @@
         <div class="text-center p-4">
             <h2 class="text-2xl font-bold text-gray-700">Couldn't find what you looking for</h2>
             <p class="mt-4 text-gray-500">Don't worry, we have lot more new options to explore from.</p>
-            <a href="{% url 'core:index' %}" class="mt-6 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+            <a href="{% url 'core:index' %}"
+                class="mt-6 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
                 Continue Shopping
             </a>
         </div>
     </div>
     {% endif%}
 
-        {% include "html/footer.html"%}
+    {% include "html/footer.html"%}
 
-        <script>        
-            function wishlistHeart() {
-                if (event.target.classList.contains("fas",  "fas-heart")) {
-                    event.target.classList.remove("fas",  "fas-heart");
-                } else {
-                event.target.classList.add("fas",  "fas-heart");
-                }
-    
-              }
+<script>
+    function wishlistHeart() {
+        if (event.target.classList.contains("fas", "fas-heart")) {
+            event.target.classList.remove("fas", "fas-heart");
+        } else {
+            event.target.classList.add("fas", "fas-heart");
+        }
+    }
+    gsap.registerPlugin(ScrollTrigger);
+    var sections = gsap.utils.toArray('#yourDiv');
+    sections.forEach((section) => {
+        gsap.to(section, {
+            duration: 1.5,
+            y: '-30%',
+            opacity: 1,
+            ease: 'power2.inOut',
+            scrollTrigger: {
+                trigger: section,
+                start: "center bottom",
+                //end: "center top",
+                //toggleClass: "active",
+                //markers: true
+            }
+        });
+    })
+</script>
 
-            gsap.registerPlugin(ScrollTrigger);
-            var sections = gsap.utils.toArray('#yourDiv');
-
-            sections.forEach((section) => {
-
-
-                gsap.to(section, {
-                    duration: 1.5,
-                    y: '-30%',
-                    opacity: 1,
-                    ease: 'power2.inOut',
-                    scrollTrigger: {
-                        trigger: section,
-                        start: "center bottom",
-                        //end: "center top",
-                        //toggleClass: "active",
-                        //markers: true
-                    }
-                });
-            })
-        </script>
-
-    </body>
-
+</body>
 
 </html>
