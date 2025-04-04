@@ -51,13 +51,6 @@ class Color(models.Model):
 
 
 class Product(models.Model):
-    CATEGORY_CHOICES = [
-        ("tshirt", "T-Shirt"),
-        ("jeans", "Jeans"),
-        ("jacket", "Jacket"),
-        ("shirt", "Shirt"),
-        ("shorts", "Shorts"),
-    ]
     product_id = models.CharField(
         primary_key=True, default=generate_random_string, max_length=50
     )

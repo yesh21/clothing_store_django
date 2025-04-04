@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from .forms import ProductFilterForm
 from django.contrib.auth.decorators import login_required
 from django.core.serializers import serialize
+from django.contrib import messages
 
 
 # Create your views here.
@@ -167,3 +168,21 @@ def product_by_category(request, category_id, name="collection"):
         "html/product_listing_page.html",
         {"category": category, "products": products},
     )
+
+
+def ajax_messages(request):
+
+    # Retrieve all messages
+    django_messages = []
+    system_messages = messages.get_messages(request)
+    system_messages.used = True
+
+    for message in system_messages:
+        django_messages.append(
+            {
+                "level": message.level,
+                "message": message.message,
+                "tags": message.tags,
+            }
+        )
+    return JsonResponse({"messages": django_messages})

@@ -15,7 +15,6 @@ from django.db.models import Case, When
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
 
@@ -183,24 +182,6 @@ def add_to_cart(request, product_variation_id, quantity=1, action="add"):
         messages.success(request, "Added to cart")
 
     return response
-
-
-def ajax_messages(request):
-
-    # Retrieve all messages
-    django_messages = []
-    system_messages = messages.get_messages(request)
-
-    for message in system_messages:
-        django_messages.append(
-            {
-                "level": message.level,
-                "message": message.message,
-                "tags": message.tags,
-            }
-        )
-    system_messages.used = True
-    return JsonResponse({"messages": django_messages})
 
 
 @login_required

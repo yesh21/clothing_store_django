@@ -15,10 +15,24 @@
         body {
             font-family: 'Playfair Display', serif;
         }
+        #yourDiv.active {
+            background-color: red;
+            /* Color when active */
+        }
+        #sidebar {
+            min-height: 100rem;
+            color: white;
+            transition: margin-left 0.3s;
+        }
+        
+        #sidebar.active {
+            margin-left: -100vw;
+        }
     </style>
 </head>
 
 <body class="bg-white text-gray-800">
+    {% include "html/nav.html"%}
     <div class="max-w-7xl mx-auto p-4">
         <div class="flex justify-between items-center mb-4">
             <a class="text-gray-600" href="/">
@@ -94,18 +108,18 @@
                     <div class="text-right">
                         <div class="flex items-center justify-end">
                             {% if cart_item.quantity <= 0 %}
-                            <a class="text-red-500" onclick ="dropQuantity()" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "subtract"  %}>
+                            <a class="text-red-500" onclick ="dropQuantity(); fetchMessages();" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "subtract"  %}>
                                 remove
                             </a>
                             {% else %}
-                            <a class="text-gray-500" onclick ="dropQuantity()" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "subtract" %}>
+                            <a class="text-gray-500" onclick ="dropQuantity(); fetchMessages();" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "subtract" %}>
                                 -
                             </a>
                             {% endif %}
                             <span class="mx-2" id = "quanitySelected">
                                 {{cart_item.quantity}}
                      </span>
-                            <a class="text-gray-500" onclick ="addQuantity()" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "add" %}>
+                            <a class="text-gray-500" onclick ="addQuantity(); fetchMessages();" href = {% url 'cart:add_to_cart' product_variety.product_variation_id '1' "add" %}>
                                  +
                             </a>
                         </div>

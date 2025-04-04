@@ -24,4 +24,5 @@ urlpatterns = [
         views.product_by_category,
         name="product_by_category",
     ),
+    path("ajax-messages/", views.ajax_messages, name="ajax_messages"),
 ]
