@@ -10,6 +10,11 @@ secret_key.txt
 # Make exceptions
 !staticfiles/media/
 !staticfiles/product_images/
+!staticfiles/css/
+!staticfiles/js/
+!staticfiles/webfonts/
+
+
 #ignored the files, without directly ignoring the folder
 staticfiles/product_images/** 
 

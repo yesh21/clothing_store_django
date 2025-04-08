@@ -98,9 +98,9 @@ def cart(request):
         form = AddressForm(request.POST)
         if form.is_valid():
             # Process the valid data (e.g., save to database)
-            cleaned_data = form.cleaned_data
+            request.session["address_form_data"] = form.cleaned_data
             url = reverse(
-                "cart:delivery_availability", kwargs={"address": "cleaned_data"}
+                "cart:delivery_availability"  # , kwargs={"address": "cleaned_data"}
             )  # Resolves the named URL
 
             return redirect(url)  # Redirect to a success page
@@ -200,23 +200,29 @@ def view_order_details_by_id(request, order_ref):
     return render(request, "html/order_details.html", context=context)
 
 
-def check_delivery_availability(request, address):
+def check_delivery_availability(request):
     # Example delivery times and cutoffs
-    delivery_times = {"5pm": "16:00", "8pm": "20:00", "midnight": "00:00"}
-    cutoffs = {"5pm": "16:00", "8pm": "19:00", "midnight": "23:00"}
-
-    current_time = datetime.now().strftime("%H:%M")
     delivery_info = {}
 
-    for time, cutoff in cutoffs.items():
-        if current_time < cutoff:
-            delivery_info[time] = "Available"
-        else:
-            delivery_info[time] = "Not Available"
-
+    address_form_data = request.session["address_form_data"]
     cart_product_items_details = get_cart_product_items_details(request)
     billing_details = calculate_billing_info(cart_product_items_details)
     cart_product_items_details = get_cart_product_items_details(request)
+
+    if request.method == "POST":
+        order = Order.objects.create(
+            user_id=request.user.id,
+            status="pending",
+            total_amount=str(int(billing_details["total"])),
+            shipping_address="dummy",
+            payment_info="NA",
+        )
+        print(order)
+        url = reverse(
+            "cart:pay", args=[order.total_amount + "00", order.order_id]
+        )  # Resolves the named URL
+
+        return redirect(url)  # Redirect to a success page
 
     return render(
         request,
@@ -224,6 +230,7 @@ def check_delivery_availability(request, address):
         {
             "delivery_info": delivery_info,
             "cart_product_items_details": cart_product_items_details,
+            "address_form_data": ", ".join(str(x) for x in address_form_data.values()),
             "billing_details": billing_details,
         },
     )
@@ -248,12 +255,12 @@ def base64_encode(input_dict):
     return base64.b64encode(data_bytes).decode("utf-8")
 
 
-def pay(request):
+def pay(request, amount, transactionid):
     MAINPAYLOAD = {
         "merchantId": "PGTESTPAYUAT86",
-        "merchantTransactionId": shortuuid.uuid(),
+        "merchantTransactionId": transactionid,  # shortuuid.uuid(),
         "merchantUserId": "MUISD123",
-        "amount": 10000,
+        "amount": amount,
         "redirectUrl": "http://127.0.0.1:8000/payment-response/",
         "redirectMode": "POST",
         "callbackUrl": "http://127.0.0.1:8000/payment-response/",
@@ -286,6 +293,7 @@ def pay(request):
     )
     responseData = response.json()
     print(responseData)
+
     return redirect(responseData["data"]["instrumentResponse"]["redirectInfo"]["url"])
 
 
@@ -310,6 +318,15 @@ def payment_response(request):
     # 1.In the live please match the amount you get byamount you send also so that hacker can't pass static value.
     # 2.Don't take Marchent ID directly validate it with yoir Marchent ID
     # ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    if form_data_dict["code"][0] == "PAYMENT_SUCCESS":
+        obj = Order.objects.get(
+            pk=transaction_id
+        )  # Use pk=id for primary key lookup[1][4]
+        obj.status = "processing"  # Modify fields
+        obj.payment_info = str(form_data_dict)
+        obj.save()
+
     if transaction_id:
         request_url = (
             "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status/PGTESTPAYUAT/"
@@ -336,3 +353,7 @@ def payment_response(request):
         "cart/html/payment_response.html",
         {"output": response.text, "main_request": form_data_dict},
     )
+
+
+# {"success":false,"code":"TOO_MANY_REQUESTS","message":"Too many requests. Please try again.","data":{}}
+# {'code': ['PAYMENT_SUCCESS'], 'merchantId': ['PGTESTPAYUAT86'], 'transactionId': ['jxxqQKwpFTvrAH6Ks7ozSp'], 'amount': ['19856'], 'providerReferenceId': ['T2504090213171471683440'], 'param1': ['na'], 'param2': ['na'], 'param3': ['na'], 'param4': ['na'], 'param5': ['na'], 'param6': ['na'], 'param7': ['na'], 'param8': ['na'], 'param9': ['na'], 'param10': ['na'], 'param11': ['na'], 'param12': ['na'], 'param13': ['na'], 'param14': ['na'], 'param15': ['na'], 'param16': ['na'], 'param17': ['na'], 'param18': ['na'], 'param19': ['na'], 'param20': ['na'], 'checksum': ['2ec420101ce340d500564d384adb5625accf5354bedcfa4588a9a4d915c2dbd0###1']}

@@ -187,11 +187,7 @@
     }
 
     function request_product_info(event, button_type = "color") {
-        fetch('/get-product-variation-json/' + {
-                    {
-                        product.product_id
-                    }
-                } + '/' + document.getElementById("sizeSelected").firstElementChild.textContent +
+        fetch('/get-product-variation-json/' + {{ product.product_id }} + '/' + document.getElementById("sizeSelected").firstElementChild.textContent +
                 '/' + document.getElementById("colorSelected").firstElementChild.textContent + '/')
             .then(response => response.json())
             .then(data => {
@@ -270,6 +266,8 @@
         }
     }
 </script>
+<script src="{% static 'js/product_by_id.js' %}"></script>
+
 </body>
 
 </html>

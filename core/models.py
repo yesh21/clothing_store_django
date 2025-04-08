@@ -3,6 +3,7 @@ from django.db import models
 import string
 import random
 from django.conf import settings
+from django.core.exceptions import ValidationError
 
 
 def generate_random_string(length=10):
@@ -68,6 +69,16 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     updated_at = models.DateTimeField(auto_now_add=True)
 
+    def clean(self):
+        # Ensure discount price is less than the base price
+        if self.discounted_price > self.base_price:
+            raise ValidationError(
+                {
+                    "discounted_price": "Discount price must be lower than the base price."
+                }
+            )
+        super().clean()
+
 
 class ProductVariation(models.Model):
     product_variation_id = models.CharField(
@@ -82,6 +93,14 @@ class ProductVariation(models.Model):
     issued_price = models.DecimalField(max_digits=10, decimal_places=2)
     selling_price = models.DecimalField(max_digits=10, decimal_places=2)
     stock_quantity = models.PositiveIntegerField()
+
+    def clean(self):
+        # Ensure discount price is less than the base price
+        if self.selling_price > self.issued_price:
+            raise ValidationError(
+                {"selling_price": "Discount price must be lower than the base price."}
+            )
+        super().clean()
 
     def __str__(self):
         return f"{self.product.name} - {self.size.name} - {self.color.name}"

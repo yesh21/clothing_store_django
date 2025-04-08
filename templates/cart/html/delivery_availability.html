@@ -62,18 +62,18 @@
                     <h2 class="text-2xl py-2 font-bold mb-4">
                         2. Delivery
                     </h2>
-                    <ul>
-                        {% for time, status in delivery_info.items %}
-                        <li class="py-2 border-b border-gray-200">
-                            <span class="text-lg">{{ time }} Delivery:</span>
-                            <span class="ml-2 text-lg ">{{ status }}</span>
-                        </li>
-                        {% endfor %}
-                    </ul>
+                    <div class="w-1/2">
+                        {{ address_form_data }}
+                        <br>
+                        <a href={% url 'cart:cart' %}
+                            class="text-red-400 underline">
+                            Edit address
+                        </a>
+                    </div>
 
                 </div>
-                <form action="{% url 'cart:pay' %}" method="get">
-
+                <form method="post">
+                    {% csrf_token %}
                     <div class="text-center mt-8 pb-4">
                         <button type="submit"
                             class="bg-gray-300 text-gray-700 p-4 rounded hover:bg-red-400 hover:text-white">

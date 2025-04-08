@@ -42,6 +42,7 @@ class Order(models.Model):
     # Status of the order
     STATUS_CHOICES = [
         ("pending", "Pending"),
+        ("confirmed", "Confirmed"),
         ("processing", "Processing"),
         ("cancelled", "Cancelled"),
         ("delivered", "Delivered"),
@@ -51,7 +52,7 @@ class Order(models.Model):
     total_amount = models.PositiveIntegerField()
     # Timestamps for creation and updates
     shipping_address = models.TextField()
-    payment_info = models.CharField(max_length=100)
+    payment_info = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -16,10 +16,14 @@ urlpatterns = [
         name="order-details-by-id",
     ),
     path(
-        "delivery/availability/<slug:address>/",
+        "delivery/availability/",
         views.check_delivery_availability,
         name="delivery_availability",
     ),
-    path("pay/", views.pay, name="pay"),
-    path("payment-response/", views.payment_response, name="payment_response"),
+    path("pay/<slug:amount>/<slug:transactionid>/", views.pay, name="pay"),
+    path(
+        "payment-response/",
+        views.payment_response,
+        name="payment_response",
+    ),
 ]

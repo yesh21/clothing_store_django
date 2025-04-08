@@ -5,7 +5,9 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Checkout Page</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'js/tailwind.js' %}"></script>
+    <script src="{% static 'js/gsap.min.js' %}"></script>
+    <script src="{% static 'js/ScrollTrigger.min.js' %}"></script>    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;display=swap"
         rel="stylesheet">
@@ -150,7 +152,7 @@
                     </form>
 
                 </div>
-                <a href={% url 'cart:delivery_availability' 'NA' %}>
+                <a href={% url 'cart:delivery_availability' %}>
                     <div class="border-t border-gray-300 py-4">
                         <p class="text-center text-gray-700 text-xl font-serif">2. Delivery</p>
                     </div>
