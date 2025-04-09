@@ -207,6 +207,11 @@ def view_order_details_by_id(request, order_ref):
 def check_delivery_availability(request):
     # Example delivery times and cutoffs
     delivery_info = {}
+    if "address_form_data" not in request.session:
+        messages.info(request, "Please fill the address form")
+        return redirect(
+            "cart:cart"
+        )  # Replace 'login' with your desired URL or view name
 
     address_form_data = request.session["address_form_data"]
     cart_product_items_details = get_cart_product_items_details(request)
@@ -218,7 +223,7 @@ def check_delivery_availability(request):
             user_id=request.user.id,
             status="pending",
             total_amount=str(int(billing_details["total"])),
-            shipping_address="dummy",
+            shipping_address=", ".join(str(x) for x in address_form_data.values()),
             payment_info="NA",
         )
         print(order)

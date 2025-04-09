@@ -43,7 +43,7 @@
 
             <!-- Action Buttons -->
             <div class="mt-8 grid gap-4">
-                <a href="#" class="inline-flex justify-center items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md transition-colors">
+                <a  href="{% url 'cart:order-details-by-id' main_request.transactionId|first %}" class="inline-flex justify-center items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md transition-colors">
                     Track Your Order
                 </a>
                 <a href="/" class="inline-flex justify-center items-center px-6 py-3 border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium rounded-md transition-colors">
@@ -78,7 +78,9 @@
 
           <!-- Action Buttons -->
           <div class="mt-8 grid gap-4">
-
+            <a  href="{% url 'cart:order-details-by-id' main_request.transactionId|first %}" class="inline-flex justify-center items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md transition-colors">
+              Track Your Order
+            </a>
               <a href="/" class="inline-flex justify-center items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md transition-colors">
                   Continue Shopping
               </a>
