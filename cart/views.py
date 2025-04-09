@@ -1,6 +1,4 @@
 import base64
-from datetime import datetime
-import hashlib
 import json
 from uuid import uuid4
 from django.shortcuts import redirect, render
@@ -19,8 +17,6 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
 
 import jsons
-import base64
-import requests
 import shortuuid
 
 # Create your views here.

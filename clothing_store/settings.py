@@ -29,7 +29,7 @@ with open(os.path.join(BASE_DIR, "secret_key.txt")) as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["plankhitter.pythonanywhere.com", "127.0.0.1"]
 
 
 # Application definition
