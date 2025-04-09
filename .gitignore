@@ -13,6 +13,8 @@ secret_key.txt
 !staticfiles/css/
 !staticfiles/js/
 !staticfiles/webfonts/
+!staticfiles/cart/
+!staticfiles/login/
 
 
 #ignored the files, without directly ignoring the folder
