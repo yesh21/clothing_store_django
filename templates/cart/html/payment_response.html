@@ -1,24 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Phonepay Payment</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You for Shopping</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<body class="bg-gray-50">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <p class= "hidden">{{ output }} {{main_request}}</p>
+      {% if main_request.code|first == 'PAYMENT_SUCCESS' %}
+        <div class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full mx-4">
+            <p class="flex justify-center">{{main_request.code|first}} </p>
+            <!-- Checkmark icon -->
+            <div class="flex justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+            </div>
 
-<body>
+            <!-- Heading -->
+            <h1 class="mt-6 text-3xl font-bold text-center text-gray-800">
+                Thank You for Your Purchase!
+            </h1>
 
-  <div class="container py-5">
-    <div class="row d-flex justify-content-center">
-      <h3 class="text-center">CHECKOUT RESPONSE</h3>
-      <br><br>
-      {{ output }}
-      <br><br>
-      {{ main_request }}
+            <!-- Message -->
+            <p class="mt-4 text-center text-gray-600">
+                Your order has been successfully processed. We've sent a confirmation email with your order details.
+            </p>
+
+            <!-- Order Details -->
+            <div class="mt-8 space-y-2 text-sm text-gray-600">
+                <div class="flex justify-between">
+                    <span>Order Number:</span>
+                    <span class="font-medium">{{main_request.transactionId|first}}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Total Amount:</span>
+                    <span class="font-medium">{% widthratio main_request.amount|first 100 1%}</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-8 grid gap-4">
+                <a href="#" class="inline-flex justify-center items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md transition-colors">
+                    Track Your Order
+                </a>
+                <a href="/" class="inline-flex justify-center items-center px-6 py-3 border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium rounded-md transition-colors">
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+        {% else %}
+        <div class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full mx-4">
+          <p class="flex justify-center text-red-800">{{main_request.code|first}} </p>
+          <!-- Heading -->
+          <h1 class="mt-6 text-3xl font-bold text-center text-red-600">
+              Your Last payement is not successful
+          </h1>
+
+          <!-- Message -->
+          <p class="mt-4 text-center text-gray-600">
+            We encountered an issue processing your payment. Dont worry, you could retry the payment through our website. Thank you for your patience!"
+          </p>
+
+          <!-- Order Details -->
+          <div class="mt-8 space-y-2 text-sm text-gray-600">
+              <div class="flex justify-between">
+                  <span>Order Number:</span>
+                  <span class="font-medium">{{main_request.transactionId|first}}</span>
+              </div>
+              <div class="flex justify-between">
+                  <span>Total Amount:</span>
+                  <span class="font-medium">{% widthratio main_request.amount|first 100 1%}</span>
+              </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mt-8 grid gap-4">
+
+              <a href="/" class="inline-flex justify-center items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md transition-colors">
+                  Continue Shopping
+              </a>
+          </div>
+      </div>
+
+      {% endif %}
     </div>
-  </div>
-  </section>
 </body>
-
 </html>

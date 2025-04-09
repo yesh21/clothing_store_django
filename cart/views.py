@@ -222,6 +222,13 @@ def check_delivery_availability(request):
             payment_info="NA",
         )
         print(order)
+        for cart_item, product_variety in cart_product_items_details:
+            orderItems = OrderedItem.objects.create(
+                product_variation=cart_item.product_variation,
+                order_id=order,
+                quantity=cart_item.quantity,
+                cost_per_unit=product_variety.selling_price,
+            )
         url = reverse(
             "cart:pay", args=[order.total_amount + "00", order.order_id]
         )  # Resolves the named URL
