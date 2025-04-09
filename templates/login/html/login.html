@@ -43,8 +43,8 @@
           </a>
         </div>
         <form method="POST">
-          {% csrf_token %} {% if form.errors %} {% for key, value in
-          form.errors.items %}
+          {% csrf_token %} {% if form.errors %}
+           {% for key, value in form.errors.items %}
           <div
             class="p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50"
             role="alert"
@@ -52,7 +52,8 @@
             <span>{{ value }} </span>
           </div>
 
-          {% endfor %} {% endif %}
+          {% endfor %}
+          {% endif %}
 
           <div class="mb-4">{{ form.username }}</div>
 
