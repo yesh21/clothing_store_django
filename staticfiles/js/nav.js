@@ -4,7 +4,7 @@ document.getElementById('sidebarCollapse').addEventListener('click', function() 
 
 
 let totalQuantity = 0;
-if (document.getElementById("wishlistcookie")){
+if (document.getElementById("cartcookie")){
     let cookiecartdata = JSON.parse(document.getElementById("cartcookie").textContent);
     for (const key in cookiecartdata) {
         totalQuantity += cookiecartdata[key].quantity;
@@ -13,7 +13,7 @@ if (document.getElementById("wishlistcookie")){
 document.getElementById("cartitemscount").textContent = `${totalQuantity}`;
 
 
-let totalWishlistItems
+let totalWishlistItems = 0
 if (document.getElementById("wishlistcookie")){
     let cookiewishlistdata = document.getElementById("wishlistcookie").textContent;
     totalWishlistItems = cookiewishlistdata.split(',').length; // Count commas by splitting and subtracting 1

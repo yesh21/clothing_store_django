@@ -8,7 +8,7 @@
     <script src="{% static 'js/tailwind.js' %}"></script>
     <script src="{% static 'js/gsap.min.js' %}"></script>
     <script src="{% static 'js/ScrollTrigger.min.js' %}"></script>    
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="{% static 'css/font-awesome.all.min.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;display=swap"
         rel="stylesheet">
     <style>
@@ -253,21 +253,8 @@
         </div>
     </div>
     {% include "html/footer.html"%}
-    <script>
-        function addQuantity() {
-            const prevSpan = event.target.previousElementSibling;
-            if (prevSpan.innerHTML < 10 && prevSpan.id === 'quanitySelected') {
-                prevSpan.innerHTML++;
-            }
-        }
+    <script src="{% static 'cart/js/cart.js' %}"></script>
 
-        function dropQuantity() {
-            const nextSpan = event.target.nextElementSibling;
-            if (nextSpan.innerHTML > 0 && nextSpan.id === 'quanitySelected') {
-                nextSpan.innerHTML--;
-            }
-        }
-    </script>
 </body>
 
 </html>

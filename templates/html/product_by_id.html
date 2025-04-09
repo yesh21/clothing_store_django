@@ -76,10 +76,27 @@
                 <h1 class="text-4xl font-bold mb-2">
                     {{ product.name }}
                 </h1>
-                <p class="text-2xl text-red-600 mb-4">
-                    Rs. {{ product.discounted_price }}
+                <div class="flex items-center space-x-3 mb-4">
+                    {% if product.base_price > product.discounted_price %}
 
-                </p>
+                    <p class="text-l line-through text-gray-500" id="basePriceSelected">
+                        Rs. {{ product.base_price }}
+    
+                    </p>
+                    <p class="text-2xl text-red-600" id="discountPriceSelected">
+                        Rs. {{ product.discounted_price }}
+                    </p>
+
+                    {% else %}
+                    <p class="text-xl text-gray-500" id="basePriceSelected">
+                        Rs. {{ product.base_price }}
+    
+                    </p>
+                    <p class="text-2xl text-red-600" id="discountPriceSelected">
+                    </p>
+                    {% endif %}
+                </div>
+
                 <div class="mb-4">
                     <span class="font-bold">
                         Colour:
@@ -147,6 +164,12 @@
                             id="addbasket" href={% url 'cart:add_to_cart' product.product_id '1' 'add' %}>
                             ADD TO BASKET</a>
                     </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                        <div class="text-gray-700">SKU</div>
+                        <div class="text-gray-700" id ="skuSelected">In Stock: NA</div>
+                      </div>                      
+                      
                     <div class="flex items-center space-x-4">
                         <a class="text-gray-600 hover:underline" href="/add-to-wishlist/1/">
                             <i class="far fa-heart">
@@ -208,6 +231,10 @@
                     }
                     document.getElementById("addbasket").classList.add("pointer-events-none", "opacity-50");
                 } else {
+                    document.getElementById("skuSelected").innerHTML = data['sku']
+                    document.getElementById("discountPriceSelected").innerHTML = 'Rs.' + data['selling_price']
+                    document.getElementById("basePriceSelected").innerHTML = 'Rs.' + data['issued_price']
+
                     update_addcart_url(data["pk"], 2)
                     document.getElementById("addbasket").classList.remove("pointer-events-none", "opacity-50");
                 }

@@ -28,10 +28,10 @@ import shortuuid
 
 def get_cart_product_items_details(request):
     if request.user.is_authenticated:
-        cart_items = Cart.objects.filter(user=request.user)
-        product_variation_details = ProductVariation.objects.filter(
-            pk__in=cart_items.values_list("product_variation", flat=True)
+        cart_items = Cart.objects.filter(user=request.user).select_related(
+            "product_variation"
         )
+        product_variation_details = [item.product_variation for item in cart_items]
     else:
         cart_items = request.COOKIES.get("cart", "{}")
         cart_items = json.loads(cart_items)
@@ -141,9 +141,17 @@ def add_to_cart(request, product_variation_id, quantity=1, action="add"):
 
     if quantity > 10:
         quantity = 10
+        messages.info(
+            request,
+            "max 10 items at one order",
+        )
+        err_flag = 1
     if product_variation.stock_quantity < quantity:
         quantity = product_variation.stock_quantity
-        messages.info(request, "OOPs, low inventory")
+        messages.info(
+            request,
+            f"OOPs, low inventory only {product_variation.stock_quantity} available",
+        )
         err_flag = 1
 
     if product_variation_id in cart:

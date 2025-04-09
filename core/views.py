@@ -125,11 +125,11 @@ def get_product_variation_json(request, product_id, size, color):
     product_variations = ProductVariation.objects.filter(
         product=product_id, size=size, color=color
     ).first()
-
     if product_variations:
         serialized_data = serialize("json", [product_variations])
         # Parse the serialized data
-        response_data = json.loads(serialized_data)[0]
+        response_data = json.loads(serialized_data)[0]["fields"]
+        response_data["pk"] = json.loads(serialized_data)[0]["pk"]
 
     return JsonResponse(response_data)
 
